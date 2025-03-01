@@ -1,0 +1,33 @@
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Global styles
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  @include flex-center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  
+  &--primary {
+    background-color: $primary-color;
+    color: white;
+  }
+  
+  &--secondary {
+    background-color: $secondary-color;
+    color: white;
+  }
+} 
