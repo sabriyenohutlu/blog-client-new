@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, ArrowRight, ThumbsUp, MessageSquare, Bookmark } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 const featuredPost = {
   title: "Modern Türk Edebiyatında Postmodern Anlatım Teknikleri",
@@ -88,126 +89,196 @@ const recommendedPosts = [
   }
 ];
 
+const categories = [
+  { name: "Tümü", value: "all" },
+  { name: "Roman İncelemeleri", value: "roman" },
+  { name: "Şiir Tahlilleri", value: "siir" },
+  { name: "Öykü Analizleri", value: "oyku" },
+  { name: "Edebi Makaleler", value: "makale" },
+];
+
+const sortOptions = [
+  { name: "En Çok Okunan", value: "most-read" },
+  { name: "En Çok Beğenilen", value: "most-liked" },
+  { name: "En Çok Yorumlanan", value: "most-commented" },
+  { name: "En Yeni", value: "newest" },
+];
+
+const popularPosts = [
+  ...recommendedPosts,
+  {
+    title: "Ahmet Hamdi Tanpınar'ın Zaman Algısı",
+    excerpt: "Huzur ve Saatleri Ayarlama Enstitüsü'nde zaman kavramının incelenmesi...",
+    author: "Prof. Dr. Ali Yıldırım",
+    date: "5 Mart 2024",
+    category: "Roman İncelemeleri",
+    image: "https://images.unsplash.com/photo-1557592722-a0a649c8c5f7?ixlib=rb-4.0.3",
+    readTime: "12 dk",
+    likes: 312,
+    comments: 45,
+    views: 1250
+  },
+  {
+    title: "İkinci Yeni Şiirinde İmge Kullanımı",
+    excerpt: "İkinci Yeni akımının öncü şairlerinin eserlerinde imge kullanımı...",
+    author: "Doç. Dr. Zeynep Aydın",
+    date: "3 Mart 2024",
+    category: "Şiir Tahlilleri",
+    image: "https://images.unsplash.com/photo-1533669955142-6a73332af4db?ixlib=rb-4.0.3",
+    readTime: "9 dk",
+    likes: 289,
+    comments: 32,
+    views: 980
+  },
+  {
+    title: "Sait Faik Öykülerinde İstanbul",
+    excerpt: "Sait Faik'in öykülerinde İstanbul'un mekansal ve toplumsal yansımaları...",
+    author: "Dr. Mehmet Kartal",
+    date: "1 Mart 2024",
+    category: "Öykü Analizleri",
+    image: "https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3",
+    readTime: "8 dk",
+    likes: 245,
+    comments: 28,
+    views: 867
+  }
+];
+
 export default function Blog() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedSort, setSelectedSort] = useState("most-read");
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <>
       <NextSeo
-        title="Blog - Edebi Akış"
-        description="Edebi Akış blog yazıları"
+        title="Popüler İçerikler - Edebi Akış"
+        description="En çok okunan, beğenilen ve yorumlanan edebi içerikler"
         openGraph={{
-          title: 'Blog - Edebi Akış',
-          description: 'Edebi Akış blog yazıları',
+          title: 'Popüler İçerikler - Edebi Akış',
+          description: 'En çok okunan, beğenilen ve yorumlanan edebi içerikler',
         }}
       />
+      
       <div className="container-custom py-8">
-        {/* Featured Post */}
-        <Card className="mb-12">
-          <CardContent className="p-0">
-            <div className="relative h-[400px] w-full">
-              <img
-                src={featuredPost.coverImage}
-                alt={featuredPost.title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
-              <div className="absolute bottom-0 p-8 text-white">
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
-                    {featuredPost.category}
-                  </span>
-                </div>
-                <h1 className="text-4xl font-bold mb-4">{featuredPost.title}</h1>
-                <p className="text-lg text-gray-200 mb-6">{featuredPost.excerpt}</p>
-                <div className="flex items-center gap-6 text-sm">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    {featuredPost.author}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    {featuredPost.date}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    {featuredPost.readTime}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-8 prose prose-lg dark:prose-invert max-w-none">
-              {featuredPost.content.split('\n\n').map((paragraph, index) => {
-                if (paragraph.includes('-------')) {
-                  const [title] = paragraph.split('\n');
-                  return <h2 key={index} className="text-2xl font-bold mt-8 mb-4">{title}</h2>;
-                }
-                return <p key={index}>{paragraph}</p>;
-              })}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Popüler İçerikler</h1>
+          <p className="text-muted-foreground text-lg">
+            En çok okunan, beğenilen ve yorumlanan edebi içeriklerimiz
+          </p>
+        </div>
 
-        {/* Recommended Posts */}
-        <section>
-          <h2 className="text-3xl font-bold mb-8">Önerilen Yazılar</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recommendedPosts.map((post, index) => (
-              <Card key={index} className="group hover-lift">
-                <CardContent className="p-0">
-                  <div className="relative h-48">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
-                    <div className="absolute top-4 right-4">
-                      <Button variant="ghost" size="icon" className="text-white">
-                        <Bookmark className="h-5 w-5" />
-                      </Button>
-                    </div>
+        {/* Filters */}
+        <div className="flex flex-col md:flex-row gap-4 mb-8">
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="İçeriklerde ara..."
+              className="w-full px-4 py-2 rounded-lg border bg-background"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-4">
+            <select
+              className="px-4 py-2 rounded-lg border bg-background"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <select
+              className="px-4 py-2 rounded-lg border bg-background"
+              value={selectedSort}
+              onChange={(e) => setSelectedSort(e.target.value)}
+            >
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {popularPosts.map((post, index) => (
+            <Card key={index} className="group hover-lift">
+              <CardContent className="p-0">
+                <div className="relative h-48">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <Button variant="ghost" size="icon" className="text-white">
+                      <Bookmark className="h-5 w-5" />
+                    </Button>
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="px-2 py-1 bg-muted rounded-full text-xs">
-                        {post.category}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
-                          <ThumbsUp className="h-4 w-4" />
-                          {post.likes}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MessageSquare className="h-4 w-4" />
-                          {post.comments}
-                        </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="px-2 py-1 bg-muted rounded-full text-xs">
+                      {post.category}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1">
+                        <ThumbsUp className="h-4 w-4" />
+                        {post.likes}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {post.readTime}
+                        <MessageSquare className="h-4 w-4" />
+                        {post.comments}
                       </div>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      {post.readTime}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Button asChild>
-              <Link href="/blog/arsiv">
-                Tüm Yazıları Gör
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </section>
+                  <div className="mt-4 pt-4 border-t flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      {post.author}
+                    </div>
+                    <div>
+                      {post.date}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-12 gap-2">
+          <Button variant="outline" disabled>
+            Önceki
+          </Button>
+          <Button variant="outline">1</Button>
+          <Button variant="outline">2</Button>
+          <Button variant="outline">3</Button>
+          <Button variant="outline">
+            Sonraki
+          </Button>
+        </div>
       </div>
     </>
   );

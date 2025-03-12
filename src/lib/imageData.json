@@ -1,0 +1,28 @@
+{
+    "images": [
+        {
+            "id": 1,
+            "title": "Sunset",
+            "url": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3",
+            "description": "A beautiful sunset over the mountains."
+        },
+        {
+            "id": 2,
+            "title": "Forest",
+            "url": "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3",
+            "description": "A serene forest with tall trees."
+        },
+        {
+            "id": 3,
+            "title": "Ocean",
+            "url": "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3",
+            "description": "Waves crashing on the shore."
+        },
+        {
+            "id": 4,
+            "title": "Mountain",
+            "url": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?ixlib=rb-4.0.3",
+            "description": "A snow-capped mountain."
+        }
+    ]
+}

@@ -7,13 +7,13 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 
 const CarouselContext = React.createContext(null)
 
-function useCarousel() {
-  const context = React.useContext(CarouselContext)
-  if (!context) {
-    throw new Error('useCarousel must be used within a Carousel provider')
-  }
-  return context
-}
+// function useCarousel() {
+//   const context = React.useContext(CarouselContext)
+//   if (!context) {
+//     throw new Error('useCarousel must be used within a Carousel provider')
+//   }
+//   return context
+// }
 
 export function Carousel({ opts = {}, plugins, className, children, ...props }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({

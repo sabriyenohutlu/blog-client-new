@@ -2,7 +2,7 @@ import CategoryComponents from "@/components/categoryComponents/categoryComponen
 
 const CategoryPage = async ({ params }) => {
   const { category } = params;
-  return <CategoryComponents />;
+  return <CategoryComponents category={category}/>;
 };
 
 export default CategoryPage;

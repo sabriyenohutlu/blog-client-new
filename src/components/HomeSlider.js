@@ -39,7 +39,7 @@ const slides = [
 export default function HomeSlider() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
-      <Carousel className="w-full" opts={{ loop: true }}>
+      {/* <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={index}>
@@ -80,7 +80,7 @@ export default function HomeSlider() {
         </CarouselContent>
         <CarouselPrevious className="left-4 md:left-8 hover:scale-110 transition-transform" />
         <CarouselNext className="right-4 md:right-8 hover:scale-110 transition-transform" />
-      </Carousel>
+      </Carousel> */}
     </div>
   )
 } 
