@@ -1,23 +1,26 @@
-"use client"
-import { NextSeo } from 'next-seo';
+"use client";
+import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Clock, User, Calendar, ArrowRight } from "lucide-react";
+import { Clock, User, Calendar, ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
+import toTitleCase from "@/utils/titleCase";
 
-const novelReview = ({novelReviewsWithLimit}) => {
-  const coverImage = "https://images.unsplash.com/photo-1476275466078-4007374efbbe?ixlib=rb-4.0.3";
-  const lastPost = novelReviewsWithLimit[0]
-  const image = "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3"
+const novelReviews = ({ novelReviewsList }) => {
+  const coverImage =
+    "https://images.unsplash.com/photo-1476275466078-4007374efbbe?ixlib=rb-4.0.3";
+  const lastPost = novelReviewsList[0];
+  const image =
+    "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3";
 
   return (
     <>
-       <NextSeo
+      <NextSeo
         title="Roman İncelemeleri - Edebi Akış"
         description="Detaylı roman analizleri ve eleştirel değerlendirmeler"
         openGraph={{
-          title: 'Roman İncelemeleri - Edebi Akış',
-          description: 'Detaylı roman analizleri ve eleştirel değerlendirmeler',
+          title: "Roman İncelemeleri - Edebi Akış",
+          description: "Detaylı roman analizleri ve eleştirel değerlendirmeler",
         }}
       />
       <div className="container-custom py-8">
@@ -32,41 +35,57 @@ const novelReview = ({novelReviewsWithLimit}) => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
               <div className="absolute bottom-0 p-8 text-white">
-                <h1 className="text-4xl font-bold mb-4">{lastPost.novel_reviewTitle}</h1>
-                <p className="text-lg text-gray-200 mb-6">{lastPost.novel_summaryInfo}</p>
+                <h1 className="text-4xl font-bold mb-4">
+                  {toTitleCase(lastPost?.novel_reviewTitle)}
+                </h1>
                 <div className="flex items-center gap-6 text-sm">
                   <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    {/* {lastPost.author} */}
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    {lastPost?.rating}/5.0
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {/* <User className="h-4 w-4" /> */}
+                    {lastPost.bookauthor_name}
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <span>
+                      {lastPost.novel_bookCategory.map((category) => (
+                        <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
+                          {category}
+                        </span>
+                      ))}
+                    </span>
+                    {/* <span className="text-gray-300">
+                  {lastPost.author}
+                </span> */}
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    {new Date(lastPost.novel_recordedDate.seconds * 1000).toLocaleString()}
+                    {new Date(
+                      lastPost.novel_recordedDate.seconds * 1000
+                    ).toLocaleString("tr-TR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4" />
-                    {/* {lastPost.readTime} */}
-                  </div>
+                    {lastPost.bookauthor_name} 
+                  </div> */}
                 </div>
               </div>
             </div>
             <div className="p-8 prose prose-lg dark:prose-invert max-w-none">
-              {/* {lastPost.content.split('\n\n').map((paragraph, index) => {
-                if (paragraph.includes('-------')) {
-                  const [title] = paragraph.split('\n');
-                  return <h2 key={index} className="text-2xl font-bold mt-8 mb-4">{title}</h2>;
-                }
-                return <p key={index}>{paragraph}</p>;
-              })} */}
+              <p>{lastPost.novel_summaryInfo || ""}</p>
             </div>
           </CardContent>
         </Card>
-
         {/* Recommended Reviews */}
         <div className="mt-16">
           <h2 className="text-3xl font-bold mb-8">Diğer İncelemeler</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {novelReviewsWithLimit.slice(1,4).map((review, index) => (
+            {novelReviewsList.slice(1, 4).map((review, index) => (
               <Card key={index} className="group hover-lift">
                 <CardContent className="p-0">
                   <div className="relative h-48">
@@ -79,15 +98,18 @@ const novelReview = ({novelReviewsWithLimit}) => {
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                      {review?.novel_reviewTitle}
+                      {toTitleCase(review?.novel_reviewTitle)}
                     </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {review?.novel_summaryInfo}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      {/* <span>{review.author}</span> */}
-                      <span>{new Date(review.novel_recordedDate.seconds * 1000).toLocaleString()}</span>
-                    </div>
+                    <h3 className="text-sm text-muted-foreground mb-3">
+                      {review?.bookauthor_name}
+                    </h3>
+                    {/* <div>
+                      {review.novel_bookCategory.map((category) => (
+                        <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
+                          {category}
+                        </span>
+                      ))}
+                    </div> */}
                   </div>
                 </CardContent>
               </Card>
@@ -104,7 +126,7 @@ const novelReview = ({novelReviewsWithLimit}) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default novelReview
+export default novelReviews;

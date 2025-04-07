@@ -46,7 +46,7 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
               Türk ve dünya edebiyatından seçme roman incelemeleri
             </p>
           </div>
-          <div className="w-full md:w-auto">
+          {/* <div className="w-full md:w-auto">
             <Select defaultValue="all">
               <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder="Kategori seçin" />
@@ -59,13 +59,13 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                 ))}
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
         </div>
 
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {novelReviewsList.map((review, index) => (
-            <Link href={`/roman/incelemeler/${review.url.urledTitle}-${review.url.post_id}`} key={index}>
+            <Link href={`/roman/incelemeler/${review.url.urledTitle}-${review.novel_reviewId}`} key={index}>
               <Card key={index} className="group hover-lift">
                 <CardContent className="p-0">
                   <div className="relative h-48">
@@ -77,7 +77,7 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
-                    <div className="absolute top-4 right-4">
+                    {/* <div className="absolute top-4 right-4">
                       <Button
                         variant="ghost"
                         size="icon"
@@ -85,11 +85,11 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                       >
                         <Bookmark className="h-5 w-5" />
                       </Button>
-                    </div>
+                    </div> */}
                     <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <span className="px-2 py-1 bg-primary/20 rounded-full text-sm">
-                        {review.category}
-                      </span>
+                      <div className="flex flex-row gap-2">
+                        {review.novel_bookCategory.map((item)=><span className="px-2 py-1 bg-primary/20 rounded-full text-sm">{item}</span>)}
+                      </div>
                     </div>
                   </div>
                   <div className="p-6">
@@ -101,7 +101,7 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                         {review.novel_summaryInfo}
                       </p>
                     </div>
-
+{/* 
                     <div className="bg-muted/50 rounded-lg p-3 mb-4">
                       <div className="text-sm">
                         <span className="font-medium">{review.novel_name}</span>
@@ -110,22 +110,22 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                           - {review.bookauthor_name}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                           <ThumbsUp className="h-4 w-4" />
                           {review.likes}
                         </div>
                         <div className="flex items-center gap-1">
                           <MessageSquare className="h-4 w-4" />
                           {review.comments}
-                        </div>
-                        <div className="flex items-center gap-1">
+                        </div> */}
+                        {/* <div className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
-                          {/* {review.readTime} */}
-                        </div>
+                          {review.readTime} 
+                        </div> */}
                       </div>
                     </div>
 
@@ -138,7 +138,11 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                         <Calendar className="h-4 w-4" />
                         {new Date(
                           review.createdAt.seconds * 1000
-                        ).toLocaleString()}
+                        ).toLocaleString("tr-TR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
                       </div>
                     </div>
                   </div>
