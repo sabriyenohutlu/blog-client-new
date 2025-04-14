@@ -1,6 +1,5 @@
 
 'use client';
-import { NextSeo } from 'next-seo';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, User, Calendar, ArrowRight, BookOpen } from "lucide-react";
@@ -72,14 +71,6 @@ const recentStories = [
 const Stories = () => {
   return (
     <>
-    <NextSeo
-      title="Hikaye - Edebi Akış"
-      description="Türk ve dünya edebiyatından seçme hikayeler"
-      openGraph={{
-        title: 'Hikaye - Edebi Akış',
-        description: 'Türk ve dünya edebiyatından seçme hikayeler',
-      }}
-    />
     <div className="container-custom py-8">
       {/* Featured Stories */}
       <section className="mb-16">

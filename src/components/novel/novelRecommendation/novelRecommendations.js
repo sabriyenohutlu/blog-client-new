@@ -1,5 +1,4 @@
 'use client';
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, BookOpen, Clock, ThumbsUp, ArrowRight } from "lucide-react";
@@ -36,14 +35,6 @@ const NovelRecommendations = ({novelRecommendationsList}) => {
   const coverImage = "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3"
   return (
     <>
-    <NextSeo
-      title="Roman Önerileri - Edebi Akış"
-      description="Okuyucularımız için seçtiğimiz özel roman tavsiyeleri"
-      openGraph={{
-        title: 'Roman Önerileri - Edebi Akış',
-        description: 'Okuyucularımız için seçtiğimiz özel roman tavsiyeleri',
-      }}
-    />
     <div className="container-custom py-8">
       {/* Featured Recommendation */}
       <Link href={`/roman/oneriler/${lastPost.url.urledTitle}-${lastPost.novel_recId}`}>

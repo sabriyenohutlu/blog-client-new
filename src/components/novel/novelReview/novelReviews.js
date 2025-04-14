@@ -1,5 +1,4 @@
 "use client";
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, User, Calendar, ArrowRight, Star } from "lucide-react";
@@ -15,14 +14,6 @@ const novelReviews = ({ novelReviewsList }) => {
 
   return (
     <>
-      <NextSeo
-        title="Roman İncelemeleri - Edebi Akış"
-        description="Detaylı roman analizleri ve eleştirel değerlendirmeler"
-        openGraph={{
-          title: "Roman İncelemeleri - Edebi Akış",
-          description: "Detaylı roman analizleri ve eleştirel değerlendirmeler",
-        }}
-      />
       <div className="container-custom py-8">
         {/* Featured Review */}
         <Link href={`/roman/incelemeler/${lastPost.url.urledTitle}-${lastPost.novel_reviewId}`}>

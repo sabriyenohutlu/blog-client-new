@@ -1,6 +1,4 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ThumbsUp, MessageSquare, Bookmark, Quote } from "lucide-react";
@@ -114,14 +112,6 @@ const styles = [
 const PoetryArchive = () => {
   return (
     <>
-    <NextSeo
-      title="Şiir Arşivi - Edebi Akış"
-      description="Türk ve dünya edebiyatından seçme şiirler"
-      openGraph={{
-        title: 'Şiir Arşivi - Edebi Akış',
-        description: 'Türk ve dünya edebiyatından seçme şiirler',
-      }}
-    />
     <div className="container-custom py-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">

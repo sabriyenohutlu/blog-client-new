@@ -1,6 +1,4 @@
 "use client";
-
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Phone, Globe, ArrowRight } from "lucide-react";
@@ -48,15 +46,6 @@ const contactInfo = {
 const About = () => {
   return (
     <>
-    <NextSeo
-      title="Hakkımızda - Edebi Akış"
-      description="Türk ve dünya edebiyatını dijital platformda buluşturan edebi içerik platformu"
-      openGraph={{
-        title: "Hakkımızda - Edebi Akış",
-        description:
-          "Türk ve dünya edebiyatını dijital platformda buluşturan edebi içerik platformu",
-      }}
-    />
     <div className="container-custom py-8">
       {/* Hero Section */}
       <section className="text-center mb-16">

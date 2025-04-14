@@ -1,6 +1,4 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,14 +43,6 @@ const contactInfo = {
 const Contact = () => {
   return (
     <>
-      <NextSeo
-        title="İletişim - Edebi Akış"
-        description="Edebi Akış ile iletişime geçin"
-        openGraph={{
-          title: 'İletişim - Edebi Akış',
-          description: 'Edebi Akış ile iletişime geçin',
-        }}
-      />
       <div className="container-custom py-8">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}

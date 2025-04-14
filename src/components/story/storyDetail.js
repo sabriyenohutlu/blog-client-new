@@ -1,6 +1,4 @@
 "use client";
-
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -125,14 +123,6 @@ const recommendedStories = [
 const StoryDetail = () => {
   return (
     <>
-      <NextSeo
-        title={`${story.title} - ${story.author} | Edebi Akış`}
-        description={`${story.author}'ın ${story.title} adlı hikayesi ve hikaye analizi`}
-        openGraph={{
-          title: `${story.title} - ${story.author} | Edebi Akış`,
-          description: `${story.author}'ın ${story.title} adlı hikayesi ve hikaye analizi`,
-        }}
-      />
       <div className="container-custom py-8">
         {/* Hero Section */}
         <Card className="mb-12">

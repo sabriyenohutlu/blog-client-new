@@ -1,5 +1,4 @@
 'use client';
-import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 const categories = [
@@ -26,14 +25,6 @@ const categories = [
 const novelCategories = () => {
   return (
     <>
-      <NextSeo
-        title="Roman - Edebi Akış"
-        description="Edebi Akış roman bölümü"
-        openGraph={{
-          title: 'Roman - Edebi Akış',
-          description: 'Edebi Akış roman bölümü',
-        }}
-      />
       <section className="container-custom py-8">
         <h1 className="text-4xl font-bold mb-8">Roman</h1>
         

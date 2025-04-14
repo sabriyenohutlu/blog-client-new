@@ -1,6 +1,4 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ThumbsUp, MessageSquare, Share2, Bookmark, ArrowRight } from "lucide-react";
@@ -89,14 +87,6 @@ const recommendedPoems = [
 const PoetryDetail = () => {
   return (
     <>
-    <NextSeo
-      title={`${poem.title} - ${poem.poet} | Edebi Akış`}
-      description={`${poem.poet}'in ${poem.title} adlı şiiri ve şiir analizi`}
-      openGraph={{
-        title: `${poem.title} - ${poem.poet} | Edebi Akış`,
-        description: `${poem.poet}'in ${poem.title} adlı şiiri ve şiir analizi`,
-      }}
-    />
     <div className="container-custom py-8">
       {/* Hero Section */}
       <Card className="mb-12">

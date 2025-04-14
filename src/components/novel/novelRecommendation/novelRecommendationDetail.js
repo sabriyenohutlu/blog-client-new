@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,10 +28,6 @@ const NovelRecommendationDetail = ({recData, recDataArticle}) => {
 };
   return (
      <>
-         <NextSeo
-           title={novel_recTitle}
-           description={novel_summaryInfo}
-         />
          <div className="container-custom py-8">
            <div className="grid lg:grid-cols-3 gap-8">
              {/* Ana İçerik */}

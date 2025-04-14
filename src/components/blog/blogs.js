@@ -1,6 +1,4 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, ArrowRight, ThumbsUp, MessageSquare, Bookmark } from "lucide-react";
@@ -152,15 +150,6 @@ const Blogs = () => {
   
     return (
       <>
-        <NextSeo
-          title="Popüler İçerikler - Edebi Akış"
-          description="En çok okunan, beğenilen ve yorumlanan edebi içerikler"
-          openGraph={{
-            title: 'Popüler İçerikler - Edebi Akış',
-            description: 'En çok okunan, beğenilen ve yorumlanan edebi içerikler',
-          }}
-        />
-        
         <div className="container-custom py-8">
           {/* Header */}
           <div className="text-center mb-12">

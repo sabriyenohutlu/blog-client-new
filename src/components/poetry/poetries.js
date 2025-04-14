@@ -1,5 +1,4 @@
 "use client";
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -107,14 +106,6 @@ const recentPoems = [
 const Poetries = ({ latestPoetryList }) => {
   return (
     <>
-      <NextSeo
-        title="Şiir - Edebi Akış"
-        description="Türk ve dünya şiirinden seçme eserler"
-        openGraph={{
-          title: "Şiir - Edebi Akış",
-          description: "Türk ve dünya şiirinden seçme eserler",
-        }}
-      />
       <div className="container-custom py-8">
         {/* Featured Poems */}
         <section className="mb-16">

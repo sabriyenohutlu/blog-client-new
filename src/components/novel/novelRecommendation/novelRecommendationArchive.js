@@ -1,6 +1,4 @@
 "use client";
-
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -134,14 +132,7 @@ const NovelRecommendationArchive = ({ novelRecommendationList }) => {
     "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3";
   return (
     <>
-      <NextSeo
-        title="Roman Önerileri Arşivi - Edebi Akış"
-        description="Okuyucularımız için seçtiğimiz özel roman tavsiyeleri"
-        openGraph={{
-          title: "Roman Önerileri Arşivi - Edebi Akış",
-          description: "Okuyucularımız için seçtiğimiz özel roman tavsiyeleri",
-        }}
-      />
+ 
       <div className="container-custom py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">

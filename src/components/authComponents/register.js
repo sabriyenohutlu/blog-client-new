@@ -1,5 +1,4 @@
 "use client"
-import { NextSeo } from 'next-seo';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,10 +9,6 @@ import { Mail, Lock, User, ArrowRight } from "lucide-react";
 const Register = () => {
   return (
     <>
-      <NextSeo
-        title="Kayıt Ol - Edebi Akış"
-        description="Edebi Akış'a üye olun"
-      />
       <div className="container-custom flex items-center justify-center min-h-[80vh] py-8">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">

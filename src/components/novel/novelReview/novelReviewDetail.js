@@ -1,6 +1,4 @@
 "use client";
-
-import { NextSeo } from "next-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,10 +50,6 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
   
   return (
     <>
-      <NextSeo
-        title={novel_reviewTitle}
-        description={novel_summaryInfo}
-      />
       <div className="container-custom py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Ana İçerik */}

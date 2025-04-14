@@ -1,6 +1,4 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Book, ArrowRight, Clock, User, BookOpen } from "lucide-react";
@@ -96,14 +94,6 @@ const categories = [
 const Biographies = () => {
   return (
     <>
-      <NextSeo
-        title="Biyografi - Edebi Akış"
-        description="Türk edebiyatının önemli isimlerinin yaşam öyküleri"
-        openGraph={{
-          title: 'Biyografi - Edebi Akış',
-          description: 'Türk edebiyatının önemli isimlerinin yaşam öyküleri',
-        }}
-      />
       <div className="container-custom py-8">
         {/* Categories */}
         <section className="mb-16">

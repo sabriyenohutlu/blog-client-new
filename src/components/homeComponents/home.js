@@ -7,10 +7,6 @@ import FeaturedBooks from '@/components/FeaturedBooks';
 const Home = () => {
     return (
         <>
-          {/* <NextSeo
-            title="Edebi Akış - Modern Edebiyat Platformu"
-            description="Türk ve dünya edebiyatının en seçkin örneklerini keşfedin. Roman incelemeleri, şiirler, hikayeler ve daha fazlası."
-          /> */}
           
           {/* Hero Section */}
           <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/10 to-transparent">
