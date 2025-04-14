@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
@@ -8,12 +7,13 @@ const convertBreadcrumb = (string) => {
   return string
     .replace(/-/g, ' ')
     .replace(/oe/g, 'ö')
+    .replace(/ie/g, 'İ')
     .replace(/ue/g, 'ü')
     .replace(/ae/g, 'ä')
     .replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-export default function Breadcrumb() {
+const Breadcrumb = () => {
   const pathname = usePathname();
   
   if (pathname === '/') return null;
@@ -31,7 +31,7 @@ export default function Breadcrumb() {
     });
 
   return (
-    <nav aria-label="Breadcrumb" className="container-custom py-4">
+    <nav aria-label="Breadcrumb" className="container-custom ">
       <ol className="flex items-center space-x-2 text-sm">
         <li>
           <Link
@@ -63,3 +63,4 @@ export default function Breadcrumb() {
     </nav>
   );
 } 
+export default Breadcrumb;

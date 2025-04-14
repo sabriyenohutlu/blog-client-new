@@ -36,13 +36,25 @@ const similarReviews = [
   },
 ];
 
-const NovelReviewDetail = ({ reviewData }) => {
-  console.log(reviewData);
+const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
+  const {
+    novel_reviewTitle,
+    novel_summaryInfo,
+    author_id,
+    createdAt,
+    rating
+  } = reviewData;
+
+  const statusAuthor = {
+    "V8zCwWuxkGggIlUl02sC9hJvP8p2": 'Sabriye N.',
+    "41dq6CLozJSoeL5uAIq4vMt5SFu1": 'Hüseyin N.'
+};
+  
   return (
     <>
       <NextSeo
-        title={reviewData.novel_reviewTitle}
-        description={reviewData.novel_summaryInfo}
+        title={novel_reviewTitle}
+        description={novel_summaryInfo}
       />
       <div className="container-custom py-8">
         <div className="grid lg:grid-cols-3 gap-8">
@@ -53,16 +65,16 @@ const NovelReviewDetail = ({ reviewData }) => {
                 {/* Header Section */}
                 <header className="mb-8">
                   <h1 className="text-3xl font-bold mb-4">
-                    {reviewData.novel_reviewTitle}
+                    {novel_reviewTitle}
                   </h1>
                   <div className="flex items-center gap-4 text-gray-600 mb-4">
-                    <span>Yazar: {reviewData.author}</span>
+                    <span>Yazar: {statusAuthor[author_id]}</span>
                     <span>•</span>
                     {/* <span>İnceleme: {reviewData.reviewBody}</span> */}
                     <span>•</span>
                     <span>
                       {new Date(
-                        reviewData.createdAt.seconds * 1000
+                        createdAt?.seconds * 1000
                       ).toLocaleString("tr-TR", {
                         day: "2-digit",
                         month: "2-digit",
@@ -75,7 +87,7 @@ const NovelReviewDetail = ({ reviewData }) => {
                       src={
                         "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3"
                       }
-                      alt={reviewData.novel_reviewTitle}
+                      alt={novel_reviewTitle}
                       fill
                       className="object-cover rounded-lg"
                       priority
@@ -83,19 +95,19 @@ const NovelReviewDetail = ({ reviewData }) => {
                   </div>
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-2xl">⭐</span>
-                    <span className="font-bold">{reviewData.rating}/5</span>
+                    <span className="font-bold">{rating}/5</span>
                   </div>
                 </header>
 
                 {/* Content Section */}
                 <div className="prose prose-lg max-w-none">
                   {/* <h2 className="text-2xl font-bold mb-4">Özet</h2> */}
-                  <p className="mb-6">{reviewData.novel_summaryInfo}</p>
+                  <p className="mb-6">{novel_summaryInfo}</p>
                   <p
                     className="whitespace-pre-line mb-8"
                     dangerouslySetInnerHTML={{
                       // __html: DOMPurify.sanitize(body),
-                      __html: reviewData.reviewBody,
+                      __html: reviewDataArticle.body,
                     }}
                   ></p>
                   {/* Recommendations Section */}
@@ -120,7 +132,7 @@ const NovelReviewDetail = ({ reviewData }) => {
           </div>
 
           {/* Sidebar - Benzer Yazılar */}
-          <div className="space-y-6">
+          {/* <div className="space-y-6">
             <h2 className="text-2xl font-bold">Benzer İncelemeler</h2>
             <div className="space-y-4">
               {similarReviews?.map((review, index) => (
@@ -175,7 +187,7 @@ const NovelReviewDetail = ({ reviewData }) => {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

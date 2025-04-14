@@ -1,17 +1,16 @@
 import NovelReviewDetail from "@/components/novel/novelReview/novelReviewDetail";
 import { fetchNovelReview } from "@/app/data/data";
  const BookReviewPage = async ({params}) => {
-  const { slug } = await params;
- 
-  const url = slug.split('-');
+  const url = String(params.slug).split('-');
   const novel_reviewId = url[url.length - 1];
   
    if (!novel_reviewId) {
-    return <div>Loading...</div>;  // Ya da bir hata mesajı gösterebilirsiniz
+    return <div>Loading...</div>;  
   } 
-  
-  const reviewData = await fetchNovelReview(novel_reviewId);
 
-  return <NovelReviewDetail reviewData={reviewData} />
+  const result = await fetchNovelReview(novel_reviewId);
+  const { reviewData, reviewDataArticle } = result;
+
+  return <NovelReviewDetail reviewData={reviewData} reviewDataArticle={reviewDataArticle}/>
 }
 export default BookReviewPage;

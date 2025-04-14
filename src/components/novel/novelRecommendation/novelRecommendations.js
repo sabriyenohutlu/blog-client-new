@@ -4,38 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, BookOpen, Clock, ThumbsUp, ArrowRight } from "lucide-react";
 import Link from "next/link";
-const featuredRecommendation = {
-  title: "Yüzyıllık Yalnızlık: Büyülü Gerçekliğin Başyapıtı",
-  coverImage: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3",
-  rating: 4.9,
-  readTime: "18 saat",
-  difficulty: "Orta",
-  genre: "Büyülü Gerçekçilik",
-  author: "Gabriel García Márquez",
-  year: "1967",
-  content: `
-    Neden Okumalısınız?
-    ------------------
-    Gabriel García Márquez'in başyapıtı "Yüzyıllık Yalnızlık", edebiyat dünyasının en etkileyici eserlerinden biridir. Büyülü gerçekçilik akımının en önemli örneği olan roman, yedi nesil boyunca Buendía ailesinin hikayesini anlatırken, Latin Amerika'nın tarihini ve kültürünü de gözler önüne serer.
-
-    Kitap Hakkında
-    -------------
-    Macondo'nun kuruluşundan yıkılışına kadar geçen sürede, Buendía ailesinin destansı öyküsü, insanlık tarihinin adeta bir mikrokozmosu gibidir. Tekrar eden isimler ve olaylar, zamanın döngüsel doğasını vurgularken, gerçekle hayalin iç içe geçtiği anlatım, okuyucuyu büyülü bir yolculuğa çıkarır.
-
-    Okuyucu İçin Notlar
-    -----------------
-    - Karakterlerin isimlerinin benzerliği kafa karıştırıcı olabilir; bir aile ağacı çıkarmanız faydalı olacaktır
-    - Kitabı okurken not almak, olayları ve karakterleri takip etmenizi kolaylaştıracaktır
-    - Büyülü gerçekçilik unsurlarına açık bir zihinle yaklaşın
-    - Latin Amerika tarihi hakkında temel bilgi edinmek, kitabı daha iyi anlamanızı sağlayacaktır
-
-    Etkileyici Alıntılar
-    ------------------
-    "Birçok yıl sonra, bir idam mangasının karşısında dururken, Albay Aureliano Buendía, babasının onu buzu keşfetmeye götürdüğü o uzak öğleden sonrayı hatırlayacaktı."
-
-    "Yalnızlık, anıların yıpranmasına ve geleceğin bulanıklaşmasına yol açar."
-  `
-};
 
 const otherRecommendations = [
   {
@@ -63,7 +31,9 @@ const otherRecommendations = [
     description: "Totaliter bir dünyada özgürlük ve bireysellik mücadelesini anlatan, zamansız bir klasik..."
   }
 ];
-const NovelRecommendations = () => {
+const NovelRecommendations = ({novelRecommendationsList}) => {
+  const lastPost = novelRecommendationsList[0];
+  const coverImage = "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3"
   return (
     <>
     <NextSeo
@@ -76,64 +46,62 @@ const NovelRecommendations = () => {
     />
     <div className="container-custom py-8">
       {/* Featured Recommendation */}
+      <Link href={`/roman/oneriler/${lastPost.url.urledTitle}-${lastPost.novel_recId}`}>
       <Card className="mb-12">
         <CardContent className="p-0">
           <div className="relative h-[400px] w-full">
             <img
-              src={featuredRecommendation.coverImage}
-              alt={featuredRecommendation.title}
+              src={coverImage}
+              alt={lastPost.novel_recTitle}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
             <div className="absolute bottom-0 p-8 text-white">
-              <h1 className="text-4xl font-bold mb-4">{featuredRecommendation.title}</h1>
+              <h1 className="text-4xl font-bold mb-4">{lastPost.novel_recTitle}</h1>
               <div className="flex flex-wrap items-center gap-6 text-sm mb-4">
                 <div className="flex items-center gap-2">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  {featuredRecommendation.rating}/5.0
+                  {lastPost.rating}/5.0
                 </div>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  {featuredRecommendation.readTime}
-                </div>
-                <div className="flex items-center gap-2">
+                  {lastPost.readTime}
+                </div> */}
+                {/* <div className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4" />
-                  {featuredRecommendation.difficulty}
-                </div>
+                  {lastPost.difficulty}
+                </div> */}
               </div>
               <div className="flex items-center gap-4">
-                <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
-                  {featuredRecommendation.genre}
-                </span>
+                {/* <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
+                  {lastPost.genre}
+                </span> */}
                 <span className="text-gray-300">
-                  {featuredRecommendation.author}, {featuredRecommendation.year}
+                  {lastPost.author}
                 </span>
               </div>
             </div>
           </div>
           <div className="p-8 prose prose-lg dark:prose-invert max-w-none">
-            {featuredRecommendation.content.split('\n\n').map((paragraph, index) => {
-              if (paragraph.includes('-------')) {
-                const [title] = paragraph.split('\n');
-                return <h2 key={index} className="text-2xl font-bold mt-8 mb-4">{title}</h2>;
-              }
-              return <p key={index}>{paragraph}</p>;
-            })}
+          <p>{lastPost.novel_summaryInfo || ""}</p>
           </div>
         </CardContent>
       </Card>
+      </Link>
+   
 
       {/* Other Recommendations */}
       <div className="mt-16">
         <h2 className="text-3xl font-bold mb-8">Diğer Öneriler</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {otherRecommendations.map((book, index) => (
+          {novelRecommendationsList.slice(1,4).map((book, index) => (
+            <Link href={`/roman/oneriler/${book.url.urledTitle}-${book.novel_recId}`}>
             <Card key={index} className="group hover-lift">
               <CardContent className="p-0">
                 <div className="relative h-48">
                   <img
-                    src={book.image}
-                    alt={book.title}
+                    src={"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3"}
+                    alt={book.novel_recTitle}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
@@ -145,22 +113,28 @@ const NovelRecommendations = () => {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                      {book.title}
+                      {book.novel_recTitle}
                     </h3>
-                    <ThumbsUp className="h-4 w-4 text-primary" />
+                    {/* <ThumbsUp className="h-4 w-4 text-primary" /> */}
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">
                     {book.author}
                   </p>
-                  <span className="inline-block px-3 py-1 bg-muted rounded-full text-xs mb-4">
-                    {book.genre}
-                  </span>
+                  <div className='py-2'>
+                    {book.novel_bookCategory.map((category) => (
+                      <span key={category} className="px-3 py-1 bg-primary/20 rounded-full text-sm mr-2">
+                        {category}
+                      </span>
+                    ))}
+                  </div>
                   <p className="text-muted-foreground text-sm line-clamp-2">
-                    {book.description}
+                    {book.novel_summaryInfo}
                   </p>
                 </div>
               </CardContent>
             </Card>
+            </Link>
+            
           ))}
         </div>
         <div className="text-center mt-8">
