@@ -3,6 +3,7 @@ import NovelRecommendationArchive from "@/components/novel/novelRecommendation/n
 
  const RomanOnerilerArsiv = async() => {
   const novelRecommendationList = await fetchNovelRecommendations();
-  return <NovelRecommendationArchive novelRecommendationList={novelRecommendationList}/>;
+   return <NovelRecommendationArchive novelRecommendationList={novelRecommendationList}/>;
+
 }
 export default RomanOnerilerArsiv;

@@ -3,6 +3,7 @@ import NovelRecommendations from "@/components/novel/novelRecommendation/novelRe
 
 const RomanOnerileri = async () => {
   const novelRecommendationsList = await fetchNovelRecommendations();
-  return <NovelRecommendations novelRecommendationsList={novelRecommendationsList}/>;
+ return <NovelRecommendations novelRecommendationsList={novelRecommendationsList}/>;
+
 }
 export default RomanOnerileri

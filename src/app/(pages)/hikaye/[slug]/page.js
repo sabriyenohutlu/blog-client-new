@@ -1,6 +1,6 @@
 import StoryDetail from "@/components/story/storyDetail";
 
 const HikayeDetay = () => {
-  return <StoryDetail />;
+   return <StoryDetail />;
 };
 export default HikayeDetay;

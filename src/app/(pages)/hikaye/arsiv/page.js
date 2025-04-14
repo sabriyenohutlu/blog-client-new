@@ -1,6 +1,6 @@
 import StoryArchive from "@/components/story/storyArchive";
 
 const HikayeArsiv = () => {
-  return <StoryArchive />;
+   return <StoryArchive />;
 };
 export default HikayeArsiv;

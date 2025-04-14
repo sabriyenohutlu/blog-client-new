@@ -4,6 +4,6 @@ import Poetries from "@/components/poetry/poetries";
 const Siir = async () => {
   const latestPoetryList = await fetchLatestPoetries();
 
-  return <Poetries latestPoetryList={latestPoetryList}/>;
+   return <Poetries latestPoetryList={latestPoetryList}/>;
 };
 export default Siir;

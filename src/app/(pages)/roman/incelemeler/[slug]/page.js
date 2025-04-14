@@ -10,7 +10,7 @@ import { fetchNovelReview } from "@/app/data/data";
 
   const result = await fetchNovelReview(novel_reviewId);
   const { reviewData, reviewDataArticle } = result;
+   return <NovelReviewDetail reviewData={reviewData} reviewDataArticle={reviewDataArticle}/>
 
-  return <NovelReviewDetail reviewData={reviewData} reviewDataArticle={reviewDataArticle}/>
 }
 export default BookReviewPage;

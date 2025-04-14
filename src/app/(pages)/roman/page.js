@@ -1,5 +1,5 @@
 import NovelCategories from "@/components/novel/novelCategories/novelCategories";
 const Roman = async () => {
-  return <NovelCategories />;
+   return <NovelCategories />; 
 };
 export default Roman;

@@ -1,6 +1,7 @@
 import About from "@/components/about/about";
 
 const Hakkimizda = () => {
-  return <About />;
+   return <About />;
+
 };
 export default Hakkimizda;

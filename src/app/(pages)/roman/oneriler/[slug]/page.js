@@ -13,12 +13,13 @@ const RomanOneriDetay = async ({ params }) => {
   const result = await fetchNovelRecommendation(novel_recId);
   const { recData, recDataArticle } = result;
 
-  return (
-    <NovelRecommendationDetail
-      recData={recData}
+   return (
+     <NovelRecommendationDetail
+       recData={recData}
       recDataArticle={recDataArticle}
-    />
-  );
+     />
+   );
+
 };
 
 export default RomanOneriDetay;

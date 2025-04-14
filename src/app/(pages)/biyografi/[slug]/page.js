@@ -3,8 +3,9 @@ import React from 'react'
 
 const BiyografiDetay = () => {
   return (
-    <BiographyDetail/>
-  )
+     <BiographyDetail/>
+   )
+
 }
 
 export default BiyografiDetay

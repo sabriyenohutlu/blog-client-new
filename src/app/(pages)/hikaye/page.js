@@ -1,8 +1,8 @@
 import Stories from "@/components/story/stories";
 
 const Hikaye = () => {
-  return (
-   <Stories/>
-  );
+   return (
+    <Stories/>
+   );
 } 
 export default Hikaye;

@@ -3,8 +3,8 @@ import NovelReviewsArchive from '@/components/novel/novelReview/novelReviewsArch
 
  const RomanIncelemelerArsiv = async() => {
   const novelReviewsList = await fetchNovelReviews();
-  return (
+   return (
     <NovelReviewsArchive novelReviewsList={novelReviewsList} />
-  );
+   )
 } 
 export default RomanIncelemelerArsiv;

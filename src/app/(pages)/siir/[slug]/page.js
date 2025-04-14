@@ -10,11 +10,12 @@ const SiirDetay = async ({ params }) => {
 
   const result = await fetchNovelRecommendation(poetry_id);
   const { poetryData, poetryDataArticle } = result;
-  return (
-    <PoetryDetail
-      poetryData={poetryData}
-      poetryDataArticle={poetryDataArticle}
-    />
-  );
+   return (
+     <PoetryDetail
+       poetryData={poetryData}
+       poetryDataArticle={poetryDataArticle}
+     />
+   );
+
 };
 export default SiirDetay;

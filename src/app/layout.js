@@ -11,15 +11,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="tr" suppressHydrationWarning>
       <body className={inter.className}>
-          <Providers>
+           <Providers> 
             <div className="flex flex-col min-h-screen">
-              <Navbar />
+              <Navbar /> 
               <main className="flex-grow pt-8">
                 {children}
               </main>
-              <Footer />
+               <Footer /> 
             </div>
-          </Providers>
+           </Providers> 
       </body>
     </html>
   );

@@ -1,8 +1,9 @@
 import BiographyArchive from "@/components/biography/biographyArchive";
 
  const BiyografiArsiv = () => {
-  return (
-    <BiographyArchive/>
-  );
+   return (
+     <BiographyArchive/>
+   );
+
 } 
 export default BiyografiArsiv;
