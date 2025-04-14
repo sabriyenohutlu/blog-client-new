@@ -1,10 +1,7 @@
 'use client';
-
-import { NextSeo } from 'next-seo';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Quote, Bookmark, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import HomeSlider from '@/components/HomeSlider';
 import FeaturedPoems from '@/components/FeaturedPoems';
 import FeaturedBooks from '@/components/FeaturedBooks';
 const Home = () => {
@@ -38,7 +35,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="relative">
-                  <HomeSlider />
+                  {/* <HomeSlider /> */}
                 </div>
               </div>
             </div>
