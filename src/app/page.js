@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Quote, Bookmark, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import HomeSlider from '@/components/HomeSlider';
-import QuoteSlider from '@/components/QuoteSlider';
 import FeaturedPoems from '@/components/FeaturedPoems';
 import FeaturedBooks from '@/components/FeaturedBooks';
 
