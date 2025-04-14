@@ -89,7 +89,7 @@ const novelReviews = ({ novelReviewsList }) => {
           <h2 className="text-3xl font-bold mb-8">Diğer İncelemeler</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {novelReviewsList.slice(1, 4).map((review, index) => (
-              <Link href={`/roman/incelemeler/${review.url.urledTitle}-${review.novel_reviewId}`}>
+              <Link href={`/roman/incelemeler/${review.url.urledTitle}-${review.novel_reviewId}`} key={index}>
               <Card key={index} className="group hover-lift">
                 <CardContent className="p-0">
                   <div className="relative h-48">
