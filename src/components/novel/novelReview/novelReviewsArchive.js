@@ -126,13 +126,7 @@ const NovelReviewsArchive = ({ novelReviewsList }) => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {new Date(
-                          review.createdAt.seconds * 1000
-                        ).toLocaleString("tr-TR", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })}
+                        {review.createdAt}
                       </div>
                     </div>
                   </div>

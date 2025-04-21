@@ -268,7 +268,7 @@ const NovelRecommendationArchive = ({ novelRecommendationList }) => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {book.createdAt.seconds}
+                        {book.createdAt}
                       </div>
                     </div>
                   </div>
