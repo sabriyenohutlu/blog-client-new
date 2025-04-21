@@ -67,13 +67,7 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
                     {/* <span>İnceleme: {reviewData.reviewBody}</span> */}
                     <span>•</span>
                     <span>
-                      {new Date(
-                        createdAt?.seconds * 1000
-                      ).toLocaleString("tr-TR", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                      })}
+                      {createdAt}
                     </span>
                   </div>
                   <div className="relative w-full h-[400px] mb-6">
@@ -101,7 +95,7 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
                     className="whitespace-pre-line mb-8"
                     dangerouslySetInnerHTML={{
                       // __html: DOMPurify.sanitize(body),
-                      __html: reviewDataArticle.body,
+                      __html: reviewDataArticle.body || "",
                     }}
                   ></p>
                   {/* Recommendations Section */}

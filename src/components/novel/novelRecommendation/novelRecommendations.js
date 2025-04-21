@@ -86,8 +86,8 @@ const NovelRecommendations = ({novelRecommendationsList}) => {
         <h2 className="text-3xl font-bold mb-8">Diğer Öneriler</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {novelRecommendationsList.slice(1,4).map((book, index) => (
-            <Link href={`/roman/oneriler/${book.url.urledTitle}-${book.novel_recId}`}>
-            <Card key={index} className="group hover-lift">
+            <Link key={index} href={`/roman/oneriler/${book.url.urledTitle}-${book.novel_recId}`}>
+            <Card className="group hover-lift">
               <CardContent className="p-0">
                 <div className="relative h-48">
                   <img

@@ -19,7 +19,10 @@ export const fetchNovelReviews = async () => {
     const novelReviewsList = querySnapshot.docs
       .map((doc) => ({
         ...doc.data(),
-        id: doc.id, // doc.id kullanımı için 'id' anahtarı daha açıklayıcı olur
+        id: doc.id, // doc.id kullanımı için 'id' anahtarı daha açıklayıcı olur,
+        createdAt: doc.createdAt?.toDate(),
+        novel_recordedDate: doc.novel_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
       }))
       .filter((item) => item.status === "completed");
     return novelReviewsList;
@@ -38,6 +41,9 @@ export const fetchNovelReviewsWithLimit = async (limit) => {
       .map((doc) => ({
         ...doc.data(),
         id: doc.id,
+        createdAt: doc.createdAt?.toDate(),
+        novel_recordedDate: doc.novel_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
       }))
       .filter((item) => item.status === "completed");
 
@@ -62,15 +68,20 @@ export const fetchNovelReview = async (novel_reviewId) => {
 
     const docSnap = await getDoc(q);
     if (docSnap.exists()) {
-      reviewData = { ...docSnap.data(), doc: docSnap.id };
+      reviewData = {
+        ...docSnap.data(),
+        doc: docSnap.id,
+        createdAt: docSnap.createdAt?.toDate(),
+        novel_recordedDate: docSnap.novel_recordedDate?.toDate(),
+        updatedAt: docSnap.updatedAt?.toDate(),
+      };
     }
 
     const articleSnap = await getDoc(qarticle);
     if (articleSnap.exists()) {
       reviewDataArticle = articleSnap.data();
     }
-    return {reviewData,reviewDataArticle}
-    
+    return { reviewData, reviewDataArticle };
   } catch (error) {
     console.error("Error fetching novel review detail:", error);
     return { reviewData: [], reviewDataArticle: [] };
@@ -84,6 +95,8 @@ export const fetchCategories = async () => {
     const categoriesList = querySnapshot.docs.map(() => ({
       ...doc.data(),
       id: doc.id,
+      created_date: doc.created_date?.toDate(),
+      updated_date: doc.updated_date?.toDate(),
     }));
     return categoriesList;
   } catch (error) {
@@ -92,50 +105,52 @@ export const fetchCategories = async () => {
   }
 };
 
-export const fetchPoetries = async () => { 
+export const fetchPoetries = async () => {
   const q = query(collection(db, "poetry"));
   try {
     const querySnapshot = await getDocs(q);
-    const poetriesList = querySnapshot.docs.map(() => ({
+    const poetriesList = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
+      createdAt: doc.createdAt?.toDate(),
+      poetry_recordedDate: doc.poetry_recordedDate?.toDate(),
+      updatedAt: doc.updatedAt?.toDate(),
     }));
     return poetriesList;
   } catch (error) {
     console.log("Error poetriesList / fetchPoetries", error);
     return [];
   }
-}
+};
 
 export const fetchPoetry = async (poetry_id) => {
   try {
     const q = doc(db, "poetry", poetry_id);
-    const qarticle = doc(
-      db,
-      "poetry",
-      poetry_id,
-      "poetryBody",
-      poetry_id
-    );
+    const qarticle = doc(db, "poetry", poetry_id, "poetryBody", poetry_id);
     let poetryData = null;
     let poetryDataArticle = null;
 
     const docSnap = await getDoc(q);
     if (docSnap.exists()) {
-      poetryData = { ...docSnap.data(), doc: docSnap.id };
+      poetryData = {
+        ...docSnap.data(),
+        doc: docSnap.id,
+        createdAt: docSnap.createdAt?.toDate(),
+        poetry_recordedDate: docSnap.poetry_recordedDate?.toDate(),
+        updatedAt: docSnap.updatedAt?.toDate(),
+      };
     }
 
     const articleSnap = await getDoc(qarticle);
     if (articleSnap.exists()) {
       poetryDataArticle = articleSnap.data();
     }
-    return {poetryData,poetryDataArticle}
-    
+    return { poetryData, poetryDataArticle };
   } catch (error) {
     console.error("Error fetching novel review detail:", error);
     return { poetryData: [], poetryDataArticle: [] };
   }
-}
+};
 
 export const fetchLatestPoetries = async () => {
   const q = query(
@@ -149,6 +164,9 @@ export const fetchLatestPoetries = async () => {
       .map((doc) => ({
         ...doc.data(),
         id: doc.id,
+        createdAt: doc.createdAt?.toDate(),
+        poetry_recordedDate: doc.poetry_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
       }))
       .filter((item) => item.status === "completed");
     return latestPoetryList;
@@ -158,35 +176,34 @@ export const fetchLatestPoetries = async () => {
   }
 };
 
-export const fetchStory = async(story_id)=>{
+export const fetchStory = async (story_id) => {
   try {
     const q = doc(db, "story", story_id);
-    const qarticle = doc(
-      db,
-      "story",
-      story_id,
-      "storyBody",
-      story_id
-    );
+    const qarticle = doc(db, "story", story_id, "storyBody", story_id);
     let storyData = null;
     let storyDataArticle = null;
 
     const docSnap = await getDoc(q);
     if (docSnap.exists()) {
-      storyData = { ...docSnap.data(), doc: docSnap.id };
+      storyData = {
+        ...docSnap.data(),
+        doc: docSnap.id,
+        story_recordedDate: docSnap.story_recordedDate?.toDate(),
+        updatedAt: docSnap.updatedAt?.toDate(),
+        createdAt: docSnap.createdAt?.toDate(),
+      };
     }
 
     const articleSnap = await getDoc(qarticle);
     if (articleSnap.exists()) {
       storyDataArticle = articleSnap.data();
     }
-    return {storyData,storyDataArticle}
-    
+    return { storyData, storyDataArticle };
   } catch (error) {
     console.error("Error fetching novel review detail:", error);
     return { storyData: [], storyDataArticle: [] };
   }
-}
+};
 
 export const fetchStories = async () => {
   const q = query(collection(db, "story"));
@@ -195,13 +212,16 @@ export const fetchStories = async () => {
     const storiesList = querySnapshot.docs.map(() => ({
       ...doc.data(),
       id: doc.id,
+      story_recordedDate: doc.story_recordedDate?.toDate(),
+      updatedAt: doc.updatedAt?.toDate(),
+      createdAt: doc.createdAt?.toDate(),
     }));
     return storiesList;
   } catch (error) {
     console.log("Error storiesList / fetchStories", error);
     return [];
   }
-}
+};
 
 export const fetchNovelRecommendations = async () => {
   const reviewsCollection = query(collection(db, "novelRecommendation"));
@@ -213,6 +233,9 @@ export const fetchNovelRecommendations = async () => {
       .map((doc) => ({
         ...doc.data(),
         id: doc.id, // doc.id kullanımı için 'id' anahtarı daha açıklayıcı olur
+        novel_recordedDate: doc.novel_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
+        createdAt: doc.createdAt?.toDate(),
       }))
       .filter((item) => item.status === "completed");
     return novelRecommendationList;
@@ -237,20 +260,25 @@ export const fetchNovelRecommendation = async (novel_recId) => {
 
     const docSnap = await getDoc(q);
     if (docSnap.exists()) {
-      recData = { ...docSnap.data(), doc: docSnap.id };
+      recData = {
+        ...docSnap.data(),
+        doc: docSnap.id,
+        novel_recordedDate: docSnap.novel_recordedDate?.toDate(),
+        updatedAt: docSnap.updatedAt?.toDate(),
+        createdAt: docSnap.createdAt?.toDate()
+      };
     }
 
     const articleSnap = await getDoc(qarticle);
     if (articleSnap.exists()) {
       recDataArticle = articleSnap.data();
     }
-    return {recData,recDataArticle}
-    
+    return { recData, recDataArticle };
   } catch (error) {
     console.error("Error fetching novel review detail:", error);
     return { recData: [], recDataArticle: [] };
   }
-}
+};
 
 export const fetchNovelRecommendationsWithLimit = async (limit) => {
   try {
@@ -262,6 +290,9 @@ export const fetchNovelRecommendationsWithLimit = async (limit) => {
       .map((doc) => ({
         ...doc.data(),
         id: doc.id,
+        novel_recordedDate: doc.novel_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
+        createdAt: doc.createdAt?.toDate()
       }))
       .filter((item) => item.status === "completed"); // status'u "completed" olanları filtrele
 

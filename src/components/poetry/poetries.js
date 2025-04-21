@@ -228,9 +228,7 @@ const Poetries = ({ latestPoetryList }) => {
                         </div>
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
-                          {new Date(
-                            poem.createdAt.seconds * 1000
-                          ).toLocaleString()}
+                          {poem.createdAt}
                         </div>
                       </div>
                       {/* <p className="text-muted-foreground italic line-clamp-2">

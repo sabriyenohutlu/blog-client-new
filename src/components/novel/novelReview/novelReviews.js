@@ -12,6 +12,7 @@ const novelReviews = ({ novelReviewsList }) => {
   const image =
     "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3";
 
+
   return (
     <>
       <div className="container-custom py-8">
@@ -41,8 +42,8 @@ const novelReviews = ({ novelReviewsList }) => {
                   </div>
                   <div className="flex items-start gap-4">
                     <span>
-                      {lastPost.novel_bookCategory.map((category) => (
-                        <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
+                      {lastPost.novel_bookCategory.map((category,idx) => (
+                        <span key={idx} className="px-3 py-1 bg-primary/20 rounded-full text-sm">
                           {category}
                         </span>
                       ))}
@@ -53,13 +54,7 @@ const novelReviews = ({ novelReviewsList }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    {new Date(
-                      lastPost.novel_recordedDate.seconds * 1000
-                    ).toLocaleString("tr-TR", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })}
+                    {lastPost.createdAt}
                   </div>
                   {/* <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4" />
