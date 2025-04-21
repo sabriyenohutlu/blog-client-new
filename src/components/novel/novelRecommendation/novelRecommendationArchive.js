@@ -132,7 +132,6 @@ const NovelRecommendationArchive = ({ novelRecommendationList }) => {
     "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3";
   return (
     <>
- 
       <div className="container-custom py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
@@ -173,109 +172,109 @@ const NovelRecommendationArchive = ({ novelRecommendationList }) => {
         {/* Recommendations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {novelRecommendationList.map((book, index) => (
-            <Link href={`/roman/oneriler/${book.url.urledTitle}-${book.novel_recId}`} key={index}>
+            <Link
+              href={`/roman/oneriler/${book.url.urledTitle}-${book.novel_recId}`}
+              key={index}
+            >
               <Card key={index} className="group hover-lift">
-              <CardContent className="p-0">
-                <div className="relative h-48">
-                  <img
-                    src={image}
-                    alt={book.novel_recTitle}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
-                  <div className="absolute top-4 right-4">
-                    <Button variant="ghost" size="icon" className="text-white">
-                      <Bookmark className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <div className="flex items-center justify-between">
-                      <div >
-                        {book.novel_bookCategory.map((category) => (
-                          <span
-                            key={category}
-                            className="px-2 py-1 bg-primary/20 rounded-full text-sm"
-                          >
-                            {category}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-1 bg-black/60 px-2 py-1 rounded-full">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm">{book.rating}</span>
+                <CardContent className="p-0">
+                  <div className="relative h-48">
+                    <img
+                      src={image}
+                      alt={book.novel_recTitle}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+                    <div className="absolute top-4 right-4">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-white"
+                      >
+                        <Bookmark className="h-5 w-5" />
+                      </Button>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          {book.novel_bookCategory.map((category) => (
+                            <span
+                              key={category}
+                              className="px-2 py-1 bg-primary/20 rounded-full text-sm"
+                            >
+                              {category}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-1 bg-black/60 px-2 py-1 rounded-full">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span className="text-sm">{book.rating}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                      {book.novel_recTitle}
-                    </h2>
-                    {/* <p className="text-sm text-muted-foreground mb-2">
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                        {book.novel_recTitle}
+                      </h2>
+                      {/* <p className="text-sm text-muted-foreground mb-2">
                       {book.author}, {book.year}
                     </p> */}
-                    <p className="text-muted-foreground line-clamp-2">
-                      {book.novel_summaryInfo}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {book.themes.map((theme, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 bg-muted rounded-full text-xs"
-                      >
-                        {theme}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1">
-                        <ThumbsUp className="h-4 w-4" />
-                        {book.likes}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MessageSquare className="h-4 w-4" />
-                        {book.comments}
-                      </div>
+                      <p className="text-muted-foreground line-clamp-2">
+                        {book.novel_summaryInfo}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      {/* <div className="flex items-center gap-1">
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {book.themes.map((theme, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 bg-muted rounded-full text-xs"
+                        >
+                          {theme}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1">
+                          <ThumbsUp className="h-4 w-4" />
+                          {book.likes}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MessageSquare className="h-4 w-4" />
+                          {book.comments}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        {/* <div className="flex items-center gap-1">
                         <Clock className="h-4 w-4" />
                         {book.readTime}
                       </div> */}
-                      {/* <span className="px-2 py-1 bg-muted rounded-full text-xs">
+                        {/* <span className="px-2 py-1 bg-muted rounded-full text-xs">
                         {book.difficulty}
                       </span> */}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border text-sm text-muted-foreground">
-                    <div>
-                      <span className="block text-xs">Öneren</span>
-                      {/* <span className="font-medium text-foreground">
+                    <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border text-sm text-muted-foreground">
+                      <div>
+                        <span className="block text-xs">Öneren</span>
+                        {/* <span className="font-medium text-foreground">
                         {book.recommendedBy}
                       </span> */}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      {new Date(
-                          book.createdAt.seconds * 1000
-                        ).toLocaleString("tr-TR", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        {book.createdAt.seconds}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
             </Link>
-          
           ))}
         </div>
       </div>
