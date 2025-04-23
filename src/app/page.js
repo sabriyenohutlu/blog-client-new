@@ -1,7 +1,8 @@
 import Home from "@/components/homeComponents/home";
+import { fetchNovelRecommendations } from "./data/data";
 
-
-export default function HomePage() {
-  return(<Home/>)
-
-} 
+const HomePage = async () => {
+  const novelRecommendationList = await fetchNovelRecommendations();
+  return <Home novelRecommendationList={novelRecommendationList} />;
+};
+export default HomePage;

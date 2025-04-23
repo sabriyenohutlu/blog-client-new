@@ -90,7 +90,7 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
                 {/* Content Section */}
                 <div className="prose prose-lg max-w-none">
                   {/* <h2 className="text-2xl font-bold mb-4">Özet</h2> */}
-                  <p className="mb-6">{novel_summaryInfo}</p>
+                  {/* <p className="mb-6">{novel_summaryInfo}</p> */}
                   <p
                     className="whitespace-pre-line mb-8"
                     dangerouslySetInnerHTML={{
