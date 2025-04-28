@@ -19,18 +19,16 @@ const Home = ({ novelRecommendationList }) => {
     <>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/10 to-transparent min-h-[500px] ">
-        <div className="container-custom flex py-2 px-0 w-full border">
+        <div className="container-custom flex py-2 px-0 w-full">
           <div className=" w-4/6 ">
             <HomeMainSlider novelRecommendationList={novelRecommendationList} />
           </div>
-          <div className="flex flex-col w-2/6 border">
-            <div className="w-full border">
-              <HomeSecSlider
-                novelRecommendationList={novelRecommendationList}
-              />
+          <div className="flex flex-col w-2/6 ">
+          <div className="w-full">
+              <HomeThirdSlider />
             </div>
-            <div className="w-full border ">
-              <HomeThirdSlider/>
+            <div className="w-full">
+              <HomeSecSlider />
             </div>
           </div>
         </div>
@@ -66,7 +64,7 @@ const Home = ({ novelRecommendationList }) => {
                 title: "Popüler İçerikler",
                 description: "En çok okunan ve beğenilen yazılar",
                 icon: TrendingUp,
-                link: "/blog",
+                link: "/popular-icerikler",
               },
             ].map((category, index) => (
               <Link key={index} href={category.link} className="group">
@@ -84,6 +82,24 @@ const Home = ({ novelRecommendationList }) => {
           </div>
         </div>
       </section>
+      <section className="py-16 bg-gradient-to-b from-primary/5 to-transparent">
+        <div className="container-custom text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Edebi yolculuğunuza başlayın
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Ücretsiz üye olun ve tüm içeriklerimize sınırsız erişim kazanın.
+            Yorumlar yapın, koleksiyonlar oluşturun ve edebi tartışmalara
+            katılın.
+          </p>
+          <Button asChild size="lg">
+            <Link href="/register" className="group">
+              Hemen Başla
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+        </div>
+      </section>
       <section className="py-16 bg-muted/50">
         <div className="container-custom">
           <div className="text-center mb-12">
@@ -93,19 +109,6 @@ const Home = ({ novelRecommendationList }) => {
             </p>
           </div>
           <FeaturedBooks />
-        </div>
-      </section>
-
-      {/* Quote Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 via-primary/10 to-transparent">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Günün Alıntısı</h2>
-            <p className="text-muted-foreground">
-              Edebiyatın en etkileyici sözleri
-            </p>
-          </div>
-          {/* <QuoteSlider /> */}
         </div>
       </section>
 
@@ -125,24 +128,7 @@ const Home = ({ novelRecommendationList }) => {
       {/* Featured Books */}
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-b from-primary/5 to-transparent">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Edebi yolculuğunuza başlayın
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Ücretsiz üye olun ve tüm içeriklerimize sınırsız erişim kazanın.
-            Yorumlar yapın, koleksiyonlar oluşturun ve edebi tartışmalara
-            katılın.
-          </p>
-          <Button asChild size="lg">
-            <Link href="/register" className="group">
-              Hemen Başla
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
-        </div>
-      </section>
+   
     </>
   );
 };

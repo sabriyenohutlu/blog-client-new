@@ -98,7 +98,7 @@ export default function QuoteSlider() {
                       <Quote className="w-2 h-2 text-primary" />
                     </div> */}
                     <div className="text-center mb-2">
-                      <h2 className="text-lg font-bold mt-2">Günün Sözleri</h2>
+                      <h2 className="text-lg font-bold mt-2">Günün Sözü</h2>
                     </div>
                     <blockquote
                       className={cn(

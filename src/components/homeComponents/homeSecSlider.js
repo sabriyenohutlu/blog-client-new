@@ -22,24 +22,13 @@ Sallanmaz o kalkışta ne mendil ne de bir kol.`,
 const HomeSecSlider = () => {
   return (
     <div className="w-full max-w-5xl mx-auto  h-[298px]">
-     <Card className="lg:col-span-2 group hover-lift">
-          <CardHeader className="pb-4">
-            <span>header</span>
-          </CardHeader>
+     <Card className="lg:col-span-2  group hover-lift h-[298px] flex  items-center">
           <CardContent>
             <div className="space-y-6">
               <div>
                 <h3 className="text-sm font-bold mb-2 group-hover:text-primary transition-colors">
                   {featuredPoem.poem.title}
                 </h3>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-                  <span>{featuredPoem.poem.category}</span>
-                  {/* <span>•</span>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="h-4 w-4" />
-                    {featuredPoem.poem.year}
-                  </div> */}
-                </div>
               </div>
 
               <div className="relative">

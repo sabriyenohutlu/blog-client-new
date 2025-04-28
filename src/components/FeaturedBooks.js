@@ -40,30 +40,13 @@ const categories = [
       review: "İnsanın iç dünyasını derinden analiz eden, duygusal yoğunluğu yüksek bir başyapıt. Petersburg'un beyaz gecelerinde geçen...",
       tags: ["Psikolojik", "Romantik", "Klasik"]
     }
-  },
-  {
-    title: "Roman Özetleri",
-    description: "Popüler romanların kapsamlı özetleri",
-    icon: Book,
-    href: "/roman/ozetler/arsiv",
-    color: "bg-green-500/10 text-green-500",
-    featured: {
-      title: "Kürk Mantolu Madonna",
-      author: "Sabahattin Ali",
-      year: "1943",
-      rating: 4.9,
-      readTime: "15 dk",
-      reviewer: "Dr. Mehmet Demir",
-      review: "İmkansız bir aşkın hikayesini anlatan, dönemin toplumsal yapısını ve kültürel çatışmalarını ustaca yansıtan bu eser...",
-      tags: ["Aşk", "Toplumsal", "Modern"]
-    }
   }
 ];
 
 export default function FeaturedBooks() {
   return (
-    <div className="container-custom">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="container-custom ">
+      <div className="grid grid-cols-1   md:grid-cols-2 lg:grid-cols-2 gap-6">
         {categories.map((category, index) => {
           const Icon = category.icon;
           return (

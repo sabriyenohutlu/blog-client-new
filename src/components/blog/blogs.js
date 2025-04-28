@@ -1,276 +1,179 @@
 'use client';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, User, ArrowRight, ThumbsUp, MessageSquare, Bookmark } from "lucide-react";
+import { Clock, User, Calendar, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
-const featuredPost = {
-  title: "Modern Türk Edebiyatında Postmodern Anlatım Teknikleri",
-  excerpt: "Son yıllarda Türk edebiyatında görülen postmodern anlatım tekniklerinin detaylı bir incelemesi ve örnek eserler üzerinden analizi...",
-  coverImage: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3",
-  author: "Dr. Ahmet Yılmaz",
-  date: "15 Mart 2024",
-  readTime: "8 dk",
-  category: "Edebi Analiz",
-  content: `
-    Modern Türk edebiyatı, özellikle 1980'lerden sonra postmodern anlatım teknikleriyle tanışmış ve bu teknikleri başarıyla uygulamaya başlamıştır. Bu değişim, geleneksel anlatım tekniklerinden kopuşu ve yeni bir edebi dilin oluşumunu beraberinde getirmiştir.
-
-    Postmodern Tekniklerin Özellikleri
-    --------------------------------
-    1. Üstkurmaca
-    - Metnin yazılış sürecinin anlatıya dahil edilmesi
-    - Yazarın metne müdahalesi
-    - Okuyucuyla doğrudan iletişim
-
-    2. Metinlerarasılık
-    - Diğer metinlere göndermeler
-    - Pastiş ve parodi kullanımı
-    - Kolaj tekniği
-
-    3. Çoğul Anlatım
-    - Farklı bakış açılarının bir arada kullanılması
-    - Zaman ve mekan kavramlarının iç içe geçmesi
-    - Gerçeklik algısının sorgulanması
-
-    Örnek Eserler ve Analiz
-    ----------------------
-    "Tutunamayanlar" - Oğuz Atay
-    - Türk edebiyatının ilk postmodern romanı
-    - Üstkurmaca tekniğinin yoğun kullanımı
-    - Bilinç akışı ve iç monolog teknikleri
-
-    "Kara Kitap" - Orhan Pamuk
-    - Metinlerarasılık örnekleri
-    - Tasavvufi metinlerle modern anlatının harmanlanması
-    - Çoğul anlatım teknikleri
-
-    Sonuç
-    -----
-    Modern Türk edebiyatında postmodern tekniklerin kullanımı, anlatım olanaklarını genişletmiş ve yeni bir edebi dil yaratmıştır. Bu değişim, Türk edebiyatının dünya edebiyatıyla entegrasyonunu sağlamış ve özgün eserlerin ortaya çıkmasına zemin hazırlamıştır.
-  `
-};
-
-const recommendedPosts = [
+const featuredStories = [
   {
-    title: "Şiir ve Müzik: Modern Türk Şiirinde Ritim",
-    excerpt: "Modern Türk şiirinde ritim ve müzikalite unsurlarının incelenmesi...",
-    author: "Zeynep Kaya",
-    date: "12 Mart 2024",
-    category: "Şiir Analizi",
-    image: "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3",
-    readTime: "6 dk",
-    likes: 234,
-    comments: 18
+    title: "Kaşağı",
+    author: "Ömer Seyfettin",
+    coverImage: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3",
+    category: "Milli Edebiyat",
+    readTime: "15 dk",
+    date: "1919",
+    excerpt: "Çocukluk anılarından yola çıkarak vicdan azabı ve kardeşlik temalarını işleyen etkileyici bir hikaye...",
+    themes: ["Vicdan", "Kardeşlik", "Pişmanlık"]
   },
   {
-    title: "Cumhuriyet Dönemi Romanında Kadın",
-    excerpt: "Cumhuriyet dönemi Türk romanında kadın karakterlerin değişimi...",
-    author: "Prof. Dr. Mehmet Demir",
-    date: "10 Mart 2024",
-    category: "Edebi İnceleme",
-    image: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?ixlib=rb-4.0.3",
-    readTime: "10 dk",
-    likes: 156,
-    comments: 23
-  },
-  {
-    title: "Türk Öykücülüğünde Minimalizm",
-    excerpt: "Modern Türk öykücülüğünde minimalist anlatım teknikleri...",
-    author: "Dr. Ayşe Yıldız",
-    date: "8 Mart 2024",
-    category: "Öykü",
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3",
-    readTime: "7 dk",
-    likes: 189,
-    comments: 15
-  }
-];
-
-const categories = [
-  { name: "Tümü", value: "all" },
-  { name: "Roman İncelemeleri", value: "roman" },
-  { name: "Şiir Tahlilleri", value: "siir" },
-  { name: "Öykü Analizleri", value: "oyku" },
-  { name: "Edebi Makaleler", value: "makale" },
-];
-
-const sortOptions = [
-  { name: "En Çok Okunan", value: "most-read" },
-  { name: "En Çok Beğenilen", value: "most-liked" },
-  { name: "En Çok Yorumlanan", value: "most-commented" },
-  { name: "En Yeni", value: "newest" },
-];
-
-const popularPosts = [
-  ...recommendedPosts,
-  {
-    title: "Ahmet Hamdi Tanpınar'ın Zaman Algısı",
-    excerpt: "Huzur ve Saatleri Ayarlama Enstitüsü'nde zaman kavramının incelenmesi...",
-    author: "Prof. Dr. Ali Yıldırım",
-    date: "5 Mart 2024",
-    category: "Roman İncelemeleri",
-    image: "https://images.unsplash.com/photo-1557592722-a0a649c8c5f7?ixlib=rb-4.0.3",
+    title: "Son Kuşlar",
+    author: "Sait Faik Abasıyanık",
+    coverImage: "https://images.unsplash.com/photo-1495640388908-05fa85288e61?ixlib=rb-4.0.3",
+    category: "Modern Hikaye",
     readTime: "12 dk",
-    likes: 312,
-    comments: 45,
-    views: 1250
+    date: "1952",
+    excerpt: "Modernleşen İstanbul'da kaybolan değerleri ve doğal güzellikleri anlatan nostaljik bir hikaye...",
+    themes: ["Modernleşme", "Doğa", "Nostalji"]
   },
   {
-    title: "İkinci Yeni Şiirinde İmge Kullanımı",
-    excerpt: "İkinci Yeni akımının öncü şairlerinin eserlerinde imge kullanımı...",
-    author: "Doç. Dr. Zeynep Aydın",
-    date: "3 Mart 2024",
-    category: "Şiir Tahlilleri",
-    image: "https://images.unsplash.com/photo-1533669955142-6a73332af4db?ixlib=rb-4.0.3",
-    readTime: "9 dk",
-    likes: 289,
-    comments: 32,
-    views: 980
-  },
-  {
-    title: "Sait Faik Öykülerinde İstanbul",
-    excerpt: "Sait Faik'in öykülerinde İstanbul'un mekansal ve toplumsal yansımaları...",
-    author: "Dr. Mehmet Kartal",
-    date: "1 Mart 2024",
-    category: "Öykü Analizleri",
-    image: "https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3",
-    readTime: "8 dk",
-    likes: 245,
-    comments: 28,
-    views: 867
+    title: "Yalnızlık Paylaşılmaz",
+    author: "Özdemir Asaf",
+    coverImage: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?ixlib=rb-4.0.3",
+    category: "Çağdaş Hikaye",
+    readTime: "10 dk",
+    date: "1960",
+    excerpt: "Modern kent yaşamında insanın yalnızlaşmasını ve iletişimsizliği anlatan derin bir hikaye...",
+    themes: ["Yalnızlık", "Kent Yaşamı", "İletişimsizlik"]
   }
 ];
 
+const recentStories = [
+  {
+    title: "Bir Kedi, Bir Adam",
+    author: "Bilge Karasu",
+    readTime: "8 dk",
+    date: "15 Mart 2024",
+    description: "Kent yaşamında insan-hayvan ilişkisini sorgulayan modern bir hikaye..."
+  },
+  {
+    title: "Maviye Boyanmış Duvarlar",
+    author: "Tomris Uyar",
+    readTime: "10 dk",
+    date: "12 Mart 2024",
+    description: "Kadın-erkek ilişkilerini toplumsal normlar çerçevesinde ele alan feminist bir bakış..."
+  },
+  {
+    title: "Gramofon Hala Çalıyor",
+    author: "Selim İleri",
+    readTime: "12 dk",
+    date: "10 Mart 2024",
+    description: "Eski İstanbul'un kaybolmaya yüz tutmuş değerlerini nostaljik bir dille anlatan hikaye..."
+  },
+  {
+    title: "Penceredeki Kadın",
+    author: "Nezihe Meriç",
+    readTime: "9 dk",
+    date: "8 Mart 2024",
+    description: "Toplumsal cinsiyet rollerini sorgulayan, kadın psikolojisini derinlemesine inceleyen bir öykü..."
+  }
+];
 
 const Blogs = () => {
-    const [selectedCategory, setSelectedCategory] = useState("all");
-    const [selectedSort, setSelectedSort] = useState("most-read");
-    const [searchQuery, setSearchQuery] = useState("");
+ 
   
     return (
       <>
-        <div className="container-custom py-8">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">Popüler İçerikler</h1>
-            <p className="text-muted-foreground text-lg">
-              En çok okunan, beğenilen ve yorumlanan edebi içeriklerimiz
-            </p>
-          </div>
-  
-          {/* Filters */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <div className="flex-1">
-              <input
-                type="text"
-                placeholder="İçeriklerde ara..."
-                className="w-full px-4 py-2 rounded-lg border bg-background"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="flex gap-4">
-              <select
-                className="px-4 py-2 rounded-lg border bg-background"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-              >
-                {categories.map((category) => (
-                  <option key={category.value} value={category.value}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-              <select
-                className="px-4 py-2 rounded-lg border bg-background"
-                value={selectedSort}
-                onChange={(e) => setSelectedSort(e.target.value)}
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-  
-          {/* Content Grid */}
+      <div className="container-custom py-8">
+        {/* Featured Stories */}
+        <section className="mb-16">
+          <h1 className="text-4xl font-bold mb-8">Öne Çıkan Yazılar</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {popularPosts.map((post, index) => (
+            {featuredStories.map((story, index) => (
               <Card key={index} className="group hover-lift">
                 <CardContent className="p-0">
                   <div className="relative h-48">
                     <img
-                      src={post.image}
-                      alt={post.title}
+                      src={story.coverImage}
+                      alt={story.title}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
-                    <div className="absolute top-4 right-4 flex gap-2">
-                      <Button variant="ghost" size="icon" className="text-white">
-                        <Bookmark className="h-5 w-5" />
-                      </Button>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="flex items-center gap-2 text-sm mb-2">
+                        <span className="px-2 py-1 bg-primary/20 rounded-full">
+                          {story.category}
+                        </span>
+                      </div>
+                      <h2 className="text-xl font-bold mb-1">{story.title}</h2>
+                      <p className="text-sm text-gray-300">{story.author}</p>
                     </div>
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="px-2 py-1 bg-muted rounded-full text-xs">
-                        {post.category}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
-                          <ThumbsUp className="h-4 w-4" />
-                          {post.likes}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MessageSquare className="h-4 w-4" />
-                          {post.comments}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center gap-1">
                         <Clock className="h-4 w-4" />
-                        {post.readTime}
+                        {story.readTime}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        {story.date}
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2">
-                        <User className="h-4 w-4" />
-                        {post.author}
-                      </div>
-                      <div>
-                        {post.date}
-                      </div>
+                    <p className="text-muted-foreground mb-4">
+                      {story.excerpt}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {story.themes.map((theme, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1 bg-muted rounded-full text-xs"
+                        >
+                          {theme}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </section>
   
-          {/* Pagination */}
-          <div className="flex justify-center mt-12 gap-2">
-            <Button variant="outline" disabled>
-              Önceki
-            </Button>
-            <Button variant="outline">1</Button>
-            <Button variant="outline">2</Button>
-            <Button variant="outline">3</Button>
-            <Button variant="outline">
-              Sonraki
+        {/* Recent Stories */}
+        <section>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold">Son Eklenen Yazılar</h2>
+            <Button variant="outline" asChild>
+              <Link href="/hikaye/arsiv">
+                Tümünü Gör
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
-        </div>
-      </>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {recentStories.map((story, index) => (
+              <Card key={index} className="group hover-lift">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                        {story.title}
+                      </h3>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                        <div className="flex items-center gap-1">
+                          <User className="h-4 w-4" />
+                          {story.author}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-4 w-4" />
+                          {story.readTime}
+                        </div>
+                      </div>
+                      <p className="text-muted-foreground line-clamp-2">
+                        {story.description}
+                      </p>
+                    </div>
+                    <Button variant="ghost" size="icon" className="mt-1">
+                      <BookOpen className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+      </div>
+    </>
     );
 }
 
