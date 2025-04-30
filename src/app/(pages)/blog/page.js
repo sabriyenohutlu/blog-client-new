@@ -1,5 +1,8 @@
+import { fetchBlogWithLimit } from "@/app/data/data";
 import Blogs from "@/components/blog/blogs";
 
-export default function BlogPage() {
-  return <Blogs/>
+ const BlogPage = async() =>{
+  const blogListWithLimit = await fetchBlogWithLimit(4);
+  return <Blogs blogListWithLimit={blogListWithLimit}/>
 } 
+export default BlogPage;

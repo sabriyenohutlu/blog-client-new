@@ -68,7 +68,7 @@ const recentStories = [
   }
 ];
 
-const Blogs = () => {
+const Blogs = ({blogListWithLimit}) => {
  
   
     return (
@@ -134,33 +134,33 @@ const Blogs = () => {
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-bold">Son Eklenen Yazılar</h2>
             <Button variant="outline" asChild>
-              <Link href="/hikaye/arsiv">
+              <Link href="/blog/arsiv">
                 Tümünü Gör
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {recentStories.map((story, index) => (
+            {blogListWithLimit.map((blog, index) => (
               <Card key={index} className="group hover-lift">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                        {story.title}
+                        {blog.blog_title}
                       </h3>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-1">
                           <User className="h-4 w-4" />
-                          {story.author}
+                          {blog.author_name}
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
-                          {story.readTime}
+                          {blog.readTime || ""}
                         </div>
                       </div>
                       <p className="text-muted-foreground line-clamp-2">
-                        {story.description}
+                        {blog.blog_summaryInfo}
                       </p>
                     </div>
                     <Button variant="ghost" size="icon" className="mt-1">

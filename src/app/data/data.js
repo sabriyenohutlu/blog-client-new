@@ -265,7 +265,7 @@ export const fetchNovelRecommendation = async (novel_recId) => {
         doc: docSnap.id,
         novel_recordedDate: docSnap.novel_recordedDate?.toDate(),
         updatedAt: docSnap.updatedAt?.toDate(),
-        createdAt: docSnap.createdAt?.toDate()
+        createdAt: docSnap.createdAt?.toDate(),
       };
     }
 
@@ -292,7 +292,7 @@ export const fetchNovelRecommendationsWithLimit = async (limit) => {
         id: doc.id,
         novel_recordedDate: doc.novel_recordedDate?.toDate(),
         updatedAt: doc.updatedAt?.toDate(),
-        createdAt: doc.createdAt?.toDate()
+        createdAt: doc.createdAt?.toDate(),
       }))
       .filter((item) => item.status === "completed"); // status'u "completed" olanları filtrele
 
@@ -302,3 +302,49 @@ export const fetchNovelRecommendationsWithLimit = async (limit) => {
     return [];
   }
 };
+
+export const fetchBlogs = async () => {
+  const blogCollection = query(collection(db, "blog"));
+  const q = query(blogCollection, orderBy("createdAt", "desc"));
+
+  try {
+    const querySnapshot = await getDocs(q);
+
+    const blogList = querySnapshot.docs
+      .map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        blog_recordedDate: doc.blog_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
+        createdAt: doc.createdAt?.toDate(),
+      }))
+      .filter((item) => (item.status = "completed"));
+    return blogList;
+  } catch (error) {
+    console.log("Error fetching blog:", error);
+    return [];
+  }
+};
+
+export const fetchBlogWithLimit = async(limit)=> {
+  try {
+    const blogCol = collection(db, "blog"); // Doğrudan koleksiyon referansı
+    const q = query(blogCol, orderBy("createdAt", "desc"), limitFn(limit)); // limit() fonksiyon olarak kullanılmalı
+    const querySnapshot = await getDocs(q);
+
+    const blogListWithLimit = querySnapshot.docs
+      .map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        blog_recordedDate: doc.blog_recordedDate?.toDate(),
+        updatedAt: doc.updatedAt?.toDate(),
+        createdAt: doc.createdAt?.toDate(),
+      }))
+      .filter((item) => item.status === "completed"); // status'u "completed" olanları filtrele
+
+    return blogListWithLimit;
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    return [];
+  }
+}
