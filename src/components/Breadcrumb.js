@@ -31,7 +31,7 @@ const Breadcrumb = () => {
     });
 
   return (
-    <nav aria-label="Breadcrumb" className="container-custom ">
+    <nav aria-label="Breadcrumb" className="container-custom pt-4">
       <ol className="flex items-center space-x-2 text-sm">
         <li>
           <Link

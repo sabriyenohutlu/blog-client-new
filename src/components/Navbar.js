@@ -44,7 +44,7 @@ export default function Navbar() {
             href="/blog" 
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
-            Blog
+            Blog Yazıları
           </Link>
           <Link 
             href="/siir" 
@@ -71,30 +71,30 @@ export default function Navbar() {
             Biyografi
           </Link>
           <Link 
-            href="/about" 
+            href="/hakkimizda" 
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
-            Hakkında
+            Hakkımızda
           </Link>
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="ml-4"
           >
             {theme === 'dark' ? (
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+              <Sun className="h-[1.2rem] w-[1.2rem]  " />
             ) : (
-              <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <Moon className="h-[1.2rem] w-[1.2rem] " />
             )}
             <span className="sr-only">Toggle theme</span>
           </Button>
-          <Button asChild variant="outline">
+          {/* <Button asChild variant="outline">
             <Link href="/login" className="flex items-center gap-2">
               <User className="h-4 w-4" />
               Giriş Yap
             </Link>
-          </Button>
+          </Button> */}
         </div>
 
         {/* Mobile Menu Button */}

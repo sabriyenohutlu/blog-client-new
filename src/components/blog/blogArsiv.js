@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 const blogPosts = [
   {
@@ -89,7 +90,12 @@ const categories = [
   { value: "dijital-kultur", label: "Dijital Kültür" }
 ];
 
-const BlogArsiv = () => {
+const BlogArsiv = ({blogList}) => {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
     return (
         <>
           <div className="container-custom py-8">
@@ -119,13 +125,14 @@ const BlogArsiv = () => {
     
             {/* Blog Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogPosts.map((post, index) => (
-                <Card key={index} className="group hover-lift">
+              {blogList.map((blog, index) => (
+                <Link href={`/blog/${blog.url.urledTitle}-${blog.blog_id}`} key={index}>
+                    <Card  className="group hover-lift">
                   <CardContent className="p-0">
                     <div className="relative h-48">
                       <img
-                        src={post.image}
-                        alt={post.title}
+                        src={"https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3"}
+                        alt={blog.blog_title}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
@@ -138,44 +145,46 @@ const BlogArsiv = () => {
                     <div className="p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="px-2 py-1 bg-muted rounded-full text-xs">
-                          {post.category}
+                          {blog.category}
                         </span>
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {post.title}
+                        {blog.blog_title}
                       </h3>
                       <p className="text-muted-foreground mb-4 line-clamp-2">
-                        {post.excerpt}
+                        {blog.blog_summaryInfo}
                       </p>
                       <div className="flex items-center justify-between text-sm text-muted-foreground">
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-1">
                             <ThumbsUp className="h-4 w-4" />
-                            {post.likes}
+                            {blog.likes}
                           </div>
                           <div className="flex items-center gap-1">
                             <MessageSquare className="h-4 w-4" />
-                            {post.comments}
+                            {blog.comments}
                           </div>
                         </div>
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
                           {post.readTime}
-                        </div>
+                        </div> */}
                       </div>
                       <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border text-sm text-muted-foreground">
                         <div className="flex items-center gap-2">
                           <User className="h-4 w-4" />
-                          {post.author}
+                          {blog.author_name}
                         </div>
                         <div className="flex items-center gap-2">
                           <Calendar className="h-4 w-4" />
-                          {post.date}
+                          {blog.createdAt.toLocaleString("tr-TR",options)}
                         </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
+                </Link>
+            
               ))}
             </div>
           </div>

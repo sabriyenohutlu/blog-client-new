@@ -311,13 +311,16 @@ export const fetchBlogs = async () => {
     const querySnapshot = await getDocs(q);
 
     const blogList = querySnapshot.docs
-      .map((doc) => ({
-        ...doc.data(),
+    .map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
         id: doc.id,
-        blog_recordedDate: doc.blog_recordedDate?.toDate(),
-        updatedAt: doc.updatedAt?.toDate(),
-        createdAt: doc.createdAt?.toDate(),
-      }))
+        blog_recordedDate: data.blog_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+        createdAt: data.createdAt?.toDate(),
+      };
+    })
       .filter((item) => (item.status = "completed"));
     return blogList;
   } catch (error) {
@@ -326,25 +329,89 @@ export const fetchBlogs = async () => {
   }
 };
 
-export const fetchBlogWithLimit = async(limit)=> {
+export const fetchBlogWithLimit = async (limit) => {
   try {
     const blogCol = collection(db, "blog"); // Doğrudan koleksiyon referansı
     const q = query(blogCol, orderBy("createdAt", "desc"), limitFn(limit)); // limit() fonksiyon olarak kullanılmalı
     const querySnapshot = await getDocs(q);
 
     const blogListWithLimit = querySnapshot.docs
-      .map((doc) => ({
-        ...doc.data(),
+    .map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
         id: doc.id,
-        blog_recordedDate: doc.blog_recordedDate?.toDate(),
-        updatedAt: doc.updatedAt?.toDate(),
-        createdAt: doc.createdAt?.toDate(),
-      }))
-      .filter((item) => item.status === "completed"); // status'u "completed" olanları filtrele
-
+        blog_recordedDate: data.blog_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+        createdAt: data.createdAt?.toDate(),
+      };
+    })
+      .filter((item) => item.status === "completed"&& item.pinned === false); // status'u "completed" olanları filtrele
     return blogListWithLimit;
   } catch (error) {
     console.error("Error fetching blog:", error);
     return [];
+  }
+};
+export const fetchPinnedBlogs = async () => {
+  try {
+    const blogCol = collection(db, "blog"); // Doğrudan koleksiyon referansı
+    const q = query(blogCol, orderBy("createdAt", "desc")); 
+    const querySnapshot = await getDocs(q);
+
+    const blogListWithPin = querySnapshot.docs
+    .map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        id: doc.id,
+        blog_recordedDate: data.blog_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+        createdAt: data.createdAt?.toDate(),
+      };
+    })
+      .filter((item) => item.status === 'completed' && item.pinned === true); // status'u "completed" olanları filtrele
+    console.log("blogListWithPin", blogListWithPin);
+       return blogListWithPin;
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    return [];
+  }
+}
+
+export const fetchBlog = async (blog_id) => {
+  try {
+    const q = doc(db, "blog", blog_id);
+    const qarticle = doc(
+      db,
+      "blog",
+      blog_id,
+      "blogBody",
+      blog_id
+    );
+    let blogData = null;
+    let blogDataArticle = null;
+
+    const docSnap = await getDoc(q);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      blogData = {
+        ...data,
+        doc: docSnap.id,
+        blog_recordedDate: data.blog_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+        createdAt: data.createdAt?.toDate(),
+      };
+    }
+
+    const articleSnap = await getDoc(qarticle);
+    if (articleSnap.exists()) {
+      blogDataArticle = articleSnap.data();
+    }
+    return { blogData, blogDataArticle };
+  } catch (error) {
+    console.error("Error fetching novel review detail:", error);
+    return { blogData: [], blogDataArticle: [] };
   }
 }
