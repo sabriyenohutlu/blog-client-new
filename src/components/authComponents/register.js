@@ -8,7 +8,7 @@ import { Mail, Lock, User, ArrowRight } from "lucide-react";
 
 const Register = () => {
   return (
-    <>
+    <div className="container">
       <div className="container-custom flex items-center justify-center min-h-[80vh] py-8">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
@@ -74,7 +74,7 @@ const Register = () => {
           </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   )
 }
 

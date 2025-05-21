@@ -1,25 +1,51 @@
-import { fetchPoetries } from "@/app/data/data";
+"use client";
+import { fetchPoetry } from "@/app/data/data";
 import PoetryDetail from "@/components/poetry/poetryDetail";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const SiirDetay = async ({ params }) => {
-  // console.log("params", params.slug);
-  //   const url = String(params.slug).split("-");
-  //   const poetry_id = url[url.length - 1];
-  
+const SiirDetay = () => {
+  const pathname = usePathname();
+  const slugStr = pathname.split("/").pop();
+  const urlParts = slugStr?.split("-") || [];
+  const poetry_id = urlParts[urlParts.length - 1];
+  const [poetryData, setPoetryData] = useState(null);
+  const [poetryDataArticle, setPoetryDataArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // if (!poetry_id) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!poetry_id) {
+    return <div>Loading...</div>;
+  }
 
-  // const result = await fetchPoetries(poetry_id);
-  // const { poetryData, poetryDataArticle } = result;
-   return (
-    //  <PoetryDetail
-    //    poetryData={poetryData}
-    //    poetryDataArticle={poetryDataArticle}
-    //  />
-    <div></div>
-   );
+  useEffect(() => {
+    if (!poetry_id) return;
 
+    const getPoetries = async () => {
+      try {
+        setLoading(true);
+        const { poetryData, poetryDataArticle } = await fetchPoetry(
+          String(poetry_id)
+        );
+        setPoetryData(poetryData);
+        setPoetryDataArticle(poetryDataArticle);
+      } catch (error) {
+        console.error("Poetry fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getPoetries();
+  }, [poetry_id]);
+
+  if (loading || !poetryData || !poetryDataArticle) {
+    return <div>Yükleniyor...</div>;
+  }
+  return (
+    <PoetryDetail
+      poetryData={poetryData}
+      poetryDataArticle={poetryDataArticle}
+    />
+  );
 };
 export default SiirDetay;

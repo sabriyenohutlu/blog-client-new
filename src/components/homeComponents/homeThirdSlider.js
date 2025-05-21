@@ -3,7 +3,7 @@ import QuoteSlider from '../QuoteSlider'
 
 const homeThirdSlider = () => {
   return (
-    <div className=' h-[298px]'>
+    <div className='h-[275px] w-full '>
         <QuoteSlider/>
     </div>
   )

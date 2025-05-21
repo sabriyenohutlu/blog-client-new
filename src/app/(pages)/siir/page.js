@@ -1,9 +1,17 @@
-import { fetchLatestPoetries } from "@/app/data/data";
+import { fetchLatestPoetries, fetchPinnedPoetryList } from "@/app/data/data";
 import Poetries from "@/components/poetry/poetries";
 export const dynamic = "force-dynamic";
-const Siir = async () => {
-  const latestPoetryList = await fetchLatestPoetries();
+const PoemsPage = async () => {
+  const [latestPoetryList, pinnedPoetryList] = await Promise.all([
+    fetchLatestPoetries(),
+    fetchPinnedPoetryList(),
+  ]);
 
-   return <Poetries latestPoetryList={latestPoetryList}/>;
+  return (
+    <Poetries
+      latestPoetryList={latestPoetryList}
+      pinnedPoetryList={pinnedPoetryList}
+    />
+  );
 };
-export default Siir;
+export default PoemsPage;

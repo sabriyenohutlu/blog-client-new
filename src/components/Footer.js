@@ -36,7 +36,7 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="border-t bg-muted/40">
-      <div className="container-custom">
+      <div className="container">
         {/* Main Footer */}
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand & Newsletter */}

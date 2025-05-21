@@ -14,21 +14,23 @@ import HomeMainSlider from "./HomeMainSlider";
 import QuoteSlider from "../QuoteSlider";
 import HomeSecSlider from "./homeSecSlider";
 import HomeThirdSlider from "./homeThirdSlider";
-const Home = ({ novelRecommendationList }) => {
+
+const Home = ({ novelRecommendationList,novelReviewsList }) => {
+
   return (
-    <>
+    <div className="container">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/10 to-transparent min-h-[500px] ">
-        <div className="container-custom flex py-2 px-0 w-full">
+      <section className="relative overflow-hidden min-h-[500px] ">
+        <div className="container flex py-2 px-0 w-full">
           <div className=" w-4/6 ">
             <HomeMainSlider novelRecommendationList={novelRecommendationList} />
           </div>
-          <div className="flex flex-col w-2/6 ">
-          <div className="w-full">
+          <div className="flex flex-col h-full  w-2/6 ">
+          <div className="w-full ">
               <HomeThirdSlider />
             </div>
-            <div className="w-full">
-              <HomeSecSlider />
+            <div className="w-full ">
+              <HomeSecSlider novelReviewsList={novelReviewsList}/>
             </div>
           </div>
         </div>
@@ -38,8 +40,8 @@ const Home = ({ novelRecommendationList }) => {
       </section> */}
 
       {/* Featured Categories */}
-      <section className="py-16 bg-muted/50">
-        <div className="container-custom">
+      <section className="py-16 ">
+        <div className="container">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
@@ -68,7 +70,7 @@ const Home = ({ novelRecommendationList }) => {
               },
             ].map((category, index) => (
               <Link key={index} href={category.link} className="group">
-                <div className="p-6 bg-background rounded-lg border hover-lift hover-glow">
+                <div className="p-6  rounded-lg border hover-lift hover-glow">
                   <category.icon className="h-8 w-8 text-primary mb-4" />
                   <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
                     {category.title}
@@ -82,8 +84,8 @@ const Home = ({ novelRecommendationList }) => {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-gradient-to-b from-primary/5 to-transparent">
-        <div className="container-custom text-center">
+      <section className="py-16">
+        <div className="container text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Edebi yolculuğunuza başlayın
           </h2>
@@ -100,8 +102,8 @@ const Home = ({ novelRecommendationList }) => {
           </Button>
         </div>
       </section>
-      <section className="py-16 bg-muted/50">
-        <div className="container-custom">
+      <section className="py-16">
+        <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Roman Kategorileri</h2>
             <p className="text-muted-foreground">
@@ -114,7 +116,7 @@ const Home = ({ novelRecommendationList }) => {
 
       {/* Featured Poems */}
       <section className="py-16">
-        <div className="container-custom">
+        <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Şiir Köşesi</h2>
             <p className="text-muted-foreground">
@@ -129,7 +131,7 @@ const Home = ({ novelRecommendationList }) => {
 
       {/* CTA Section */}
    
-    </>
+    </div>
   );
 };
 

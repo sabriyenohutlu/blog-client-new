@@ -42,8 +42,7 @@ const contactInfo = {
 
 const Contact = () => {
   return (
-    <>
-      <div className="container-custom py-8">
+      <div className="container py-8">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           <section>
@@ -175,7 +174,6 @@ const Contact = () => {
           </section>
         </div>
       </div>
-    </>
   )
 }
 

@@ -11,6 +11,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { getRandomImage } from "@/lib/randomImage";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -40,6 +42,15 @@ const slides = [
 ];
 
 export default function HomeSlider({novelRecommendationList}) {
+  const [randomImages, setRandomImages] = useState([]);
+
+  useEffect(() => {
+    const generatedImages = novelRecommendationList.map(() => getRandomImage());
+    setRandomImages(generatedImages);
+  }, [novelRecommendationList]);
+
+  // Wait until images are loaded on the client
+  if (randomImages.length === 0) return null;
   return (
     <div className="w-full max-w-5xl mx-auto px-4">
     <Carousel className="w-full">
@@ -50,7 +61,7 @@ export default function HomeSlider({novelRecommendationList}) {
               <CardContent className="relative aspect-[3/2] flex items-center justify-center p-0">
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${"https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3"})` }}
+                  style={{ backgroundImage: `url(${randomImages[index].url})` }}
                 >
                   <div className="absolute inset-0 bg-black/50" />
                 </div>

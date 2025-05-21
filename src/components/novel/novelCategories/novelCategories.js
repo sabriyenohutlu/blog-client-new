@@ -24,8 +24,8 @@ const categories = [
 ];
 const novelCategories = () => {
   return (
-    <>
-      <section className="container-custom py-8">
+
+      <section className="container py-8">
         <h1 className="text-4xl font-bold mb-8">Roman</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,7 +67,7 @@ const novelCategories = () => {
           ))}
         </div>
       </section>
-    </>
+
   )
 }
 

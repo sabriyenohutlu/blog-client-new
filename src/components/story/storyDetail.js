@@ -122,8 +122,7 @@ const recommendedStories = [
 
 const StoryDetail = () => {
   return (
-    <>
-      <div className="container-custom py-8">
+      <div className="container py-8">
         {/* Hero Section */}
         <Card className="mb-12">
           <CardContent className="p-0">
@@ -279,7 +278,6 @@ const StoryDetail = () => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

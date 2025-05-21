@@ -84,35 +84,39 @@ const recommendedPoems = [
   }
 ];
 
-const PoetryDetail = () => {
+const PoetryDetail = ({poetryData,poetryDataArticle}) => {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
   return (
-    <>
-    <div className="container-custom py-8">
+    <div className="container py-8">
       {/* Hero Section */}
       <Card className="mb-12">
         <CardContent className="p-0">
           <div className="relative h-[400px] w-full">
             <img
-              src={poem.coverImage}
-              alt={poem.title}
+              src={"https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3"}
+              alt={poetryData.poetry_title}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
             <div className="absolute bottom-0 p-8 text-white">
-              <div className="flex items-center gap-4 mb-4">
+              {/* <div className="flex items-center gap-4 mb-4">
                 <span className="px-3 py-1 bg-primary/20 rounded-full text-sm">
                   {poem.category}
                 </span>
-              </div>
-              <h1 className="text-4xl font-bold mb-4">{poem.title}</h1>
+              </div> */}
+              <h1 className="text-4xl font-bold mb-4">{poetryData.poetry_title}</h1>
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  {poem.poet}
+                  {poetryData.poetryOfWho}
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  {poem.year}
+                  {poetryData.createdAt?.toLocaleString("tr-TR", options)}
                 </div>
               </div>
             </div>
@@ -126,21 +130,25 @@ const PoetryDetail = () => {
           <Card>
             <CardContent className="p-8">
               {/* Poem Content */}
-              <div className="mb-8">
-                <pre className="font-serif text-lg whitespace-pre-line leading-relaxed">
-                  {poem.content}
-                </pre>
-              </div>
+              <div className="prose prose-lg max-w-none">
+                  <p
+                    className="whitespace-pre-line mb-8"
+                    dangerouslySetInnerHTML={{
+                      // __html: DOMPurify.sanitize(body),
+                      __html: poetryDataArticle.body,
+                    }}
+                  ></p>
+                </div>
 
               {/* Interaction Buttons */}
               <div className="flex items-center gap-4 py-4 border-t border-b border-border">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ThumbsUp className="h-4 w-4" />
-                  {poem.likes}
+                  {poetryData.likes}
                 </Button>
                 <Button variant="ghost" size="sm" className="gap-2">
                   <MessageSquare className="h-4 w-4" />
-                  {poem.comments}
+                  {poetryData.comments}
                 </Button>
                 <Button variant="ghost" size="sm">
                   <Share2 className="h-4 w-4" />
@@ -152,7 +160,7 @@ const PoetryDetail = () => {
 
               {/* Themes */}
               <div className="flex flex-wrap gap-2 mt-6">
-                {poem.themes.map((theme, index) => (
+                {poetryData.themes.map((theme, index) => (
                   <span
                     key={index}
                     className="px-3 py-1 bg-muted rounded-full text-sm"
@@ -177,7 +185,7 @@ const PoetryDetail = () => {
         </div>
 
         {/* Sidebar */}
-        <div>
+        {/* <div>
           <h2 className="text-2xl font-bold mb-4">Benzer Şiirler</h2>
           <div className="space-y-4">
             {recommendedPoems.map((poem, index) => (
@@ -218,15 +226,14 @@ const PoetryDetail = () => {
             ))}
           </div>
           <Button asChild variant="outline" className="w-full mt-4">
-            <Link href="/siir">
+            <Link href="/siir/arsiv">
               Tüm Şiirleri Gör
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
-  </>
   )
 }
 

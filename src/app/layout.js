@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={inter.className }>
            <Providers> 
             <div className="flex flex-col min-h-screen">
               <Navbar /> 

@@ -1,59 +1,58 @@
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, BookOpen, Calendar, MessageSquare, ThumbsUp } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-const featuredPoem = {
-  title: "Günün Şiiri",
-  poem: {
-    title: "Sessiz Gemi",
-    content: `Artık demir almak günü gelmişse zamandan,
-Meçhule giden bir gemi kalkar bu limandan.
-Hiç yolcusu yokmuş gibi sessizce alır yol;
-Sallanmaz o kalkışta ne mendil ne de bir kol.`,
-    poet: "Yahya Kemal Beyatlı",
-    year: "1925",
-    category: "Lirik Şiir",
-    likes: 856,
-    comments: 124
-  }
-};
+import React, { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from "../ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { getRandomImage } from "@/lib/randomImage";
+const HomeSecSlider = ({ novelReviewsList }) => {
+  const [randomImages, setRandomImages] = useState([]);
 
-const HomeSecSlider = () => {
+  useEffect(() => {
+    const generatedImages = novelReviewsList.map(() => getRandomImage());
+    setRandomImages(generatedImages);
+  }, [novelReviewsList]);
+
+  // Wait until images are loaded on the client
+  if (randomImages.length === 0) return null;
   return (
     <div className="w-full max-w-5xl mx-auto  h-[298px]">
-     <Card className="lg:col-span-2  group hover-lift h-[298px] flex  items-center">
-          <CardContent>
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-sm font-bold mb-2 group-hover:text-primary transition-colors">
-                  {featuredPoem.poem.title}
-                </h3>
-              </div>
-
-              <div className="relative">
-                <div className="absolute -left-4 top-0 bottom-0 w-1 bg-primary/20 group-hover:bg-primary transition-colors" />
-                <p className="text-sm text-muted-foreground italic whitespace-pre-line pl-6">
-                  {featuredPoem.poem.content}
-                </p>
-              </div>
-
-              {/* <div className="flex items-center justify-between pt-4 border-t border-border">
-                <span className="font-medium">{featuredPoem.poem.poet}</span>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <ThumbsUp className="h-4 w-4" />
-                    {featuredPoem.poem.likes}
+      <Carousel
+        className="w-full"
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
+      >
+        <CarouselContent>
+          {novelReviewsList.map((slide, index) => (
+            <CarouselItem key={index}>
+              <Card className="border-0 shadow-none">
+                <CardContent className="relative aspect-[3/2] flex items-center justify-center p-0">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${randomImages[index].url})`,
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-black/50" />
                   </div>
-                  <div className="flex items-center gap-1">
-                    <MessageSquare className="h-4 w-4" />
-                    {featuredPoem.poem.comments}
+                  <div className="absolute bottom-0 left-0 right-0 z-10 text-start p-4 text-white ">
+                    <h2 className="text-sm md:text-lg font-bold mb-4">
+                      {slide.novel_reviewTitle}
+                    </h2>
                   </div>
-                </div>
-              </div> */}
-            </div>
-          </CardContent>
-        </Card>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {/* <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" /> */}
+      </Carousel>
     </div>
   );
 };

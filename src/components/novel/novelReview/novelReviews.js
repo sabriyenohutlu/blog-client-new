@@ -14,8 +14,7 @@ const novelReviews = ({ novelReviewsList }) => {
 
 
   return (
-    <>
-      <div className="container-custom py-8">
+      <div className="container py-8">
         {/* Featured Review */}
         <Link href={`/roman/incelemeler/${lastPost.url.urledTitle}-${lastPost.novel_reviewId}`}>
         <Card className="mb-12">
@@ -116,7 +115,6 @@ const novelReviews = ({ novelReviewsList }) => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

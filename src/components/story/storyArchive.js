@@ -93,8 +93,7 @@ const stories = [
 
 const StoryArchive = () => {
   return (
-    <>
-    <div className="container-custom py-8">
+    <div className="container py-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
@@ -213,7 +212,6 @@ const StoryArchive = () => {
         ))}
       </div>
     </div>
-  </>
   )
 }
 

@@ -45,7 +45,7 @@ const categories = [
 
 export default function FeaturedBooks() {
   return (
-    <div className="container-custom ">
+    <div className="container ">
       <div className="grid grid-cols-1   md:grid-cols-2 lg:grid-cols-2 gap-6">
         {categories.map((category, index) => {
           const Icon = category.icon;

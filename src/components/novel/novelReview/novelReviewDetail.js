@@ -49,8 +49,7 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
 };
   
   return (
-    <>
-      <div className="container-custom py-8">
+      <div className="container py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Ana İçerik */}
           <div className="lg:col-span-2">
@@ -178,7 +177,6 @@ const NovelReviewDetail = ({reviewData,reviewDataArticle}) => {
           </div> */}
         </div>
       </div>
-    </>
   );
 };
 

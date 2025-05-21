@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
+import { fetchDailyWords } from "@/app/data/data";
 
 const quotes = [
   {
@@ -61,6 +62,20 @@ const quotes = [
 export default function QuoteSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [dailyWord, setDailyWord] = useState(null);
+
+  const getDailyWords = async () => {
+    try {
+      setLoading(true);
+      const dailyWordsList = await fetchDailyWords();
+      setDailyWord(dailyWordsList);
+    } catch (error) {
+      console.error("Poetry fetch error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -68,12 +83,12 @@ export default function QuoteSlider() {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % quotes.length);
     }, 5000);
-
+    getDailyWords();
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
   return (
-    <div className="container w-full p-0">
+    <div className=" w-full h-full">
       <div className="w-full mx-auto px-4 md:px-8">
         <Carousel
           className="relative"
@@ -90,28 +105,28 @@ export default function QuoteSlider() {
           }}
         >
           <CarouselContent>
-            {quotes.map((quote, index) => (
+            {dailyWord?.map((quote, index) => (
               <CarouselItem key={index}>
-                <Card className="border-none bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-sm">
+                <Card className=" bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-sm">
                   <CardContent className="flex flex-col items-center p-2 md:p-12 text-center">
                     {/* <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mb-8">
                       <Quote className="w-2 h-2 text-primary" />
                     </div> */}
-                    <div className="text-center mb-2">
+                    {/* <div className="text-center mb-2">
                       <h2 className="text-lg font-bold mt-2">Günün Alıntısı</h2>
-                    </div>
+                    </div> */}
                     <blockquote
                       className={cn(
                         "text-sm  font-medium mb-4 leading-relaxed",
                         "transition-all duration-500 hover:scale-[1.02]"
                       )}
                     >
-                      "{quote.text}"
+                      "{quote.dailyWord_title}"
                     </blockquote>
                     <footer className="space-y-3">
                       <cite className="not-italic">
                         <span className="font-semibold text-sm block">
-                          {quote.author}
+                          {quote.dailyWord_authorName}
                         </span>
                         {/* <span className="text-primary/80 font-medium">
                           {quote.work}

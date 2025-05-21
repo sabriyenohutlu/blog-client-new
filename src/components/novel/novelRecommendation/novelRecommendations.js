@@ -34,8 +34,7 @@ const NovelRecommendations = ({novelRecommendationsList}) => {
   const lastPost = novelRecommendationsList[0];
   const coverImage = "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?ixlib=rb-4.0.3"
   return (
-    <>
-    <div className="container-custom py-8">
+    <div className="container py-8">
       {/* Featured Recommendation */}
       <Link href={`/roman/oneriler/${lastPost.url.urledTitle}-${lastPost.novel_recId}`}>
       <Card className="mb-12">
@@ -138,7 +137,6 @@ const NovelRecommendations = ({novelRecommendationsList}) => {
         </div>
       </div>
     </div>
-  </>
   )
 }
 

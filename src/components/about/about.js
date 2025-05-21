@@ -45,8 +45,8 @@ const contactInfo = {
 
 const About = () => {
   return (
-    <>
-    <div className="container-custom py-8">
+
+    <div className="container py-8">
       {/* Hero Section */}
       <section className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -184,7 +184,7 @@ const About = () => {
         </Card>
       </section>
     </div>
-  </>
+
   )
 }
 

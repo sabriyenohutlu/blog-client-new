@@ -2,7 +2,7 @@
 
 const BiographyDetail = () => {
   return (
-    <div>biographyDetail</div>
+    <div className="container py-8"></div>
   )
 }
 

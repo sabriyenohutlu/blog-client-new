@@ -145,8 +145,7 @@ const PopularContents = () => {
     const [searchQuery, setSearchQuery] = useState("");
   
     return (
-      <>
-        <div className="container-custom py-8">
+        <div className="container py-8">
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Popüler İçerikler</h1>
@@ -266,7 +265,6 @@ const PopularContents = () => {
             </Button>
           </div>
         </div>
-      </>
     );
 }
 

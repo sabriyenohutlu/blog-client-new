@@ -54,7 +54,7 @@ const popularPoems = [
 
 export default function FeaturedPoems() {
   return (
-    <div className="container-custom">
+    <div className="container">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Günün Şiiri */}
         <Card className="lg:col-span-2 group hover-lift">

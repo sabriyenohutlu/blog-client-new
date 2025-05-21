@@ -18,8 +18,8 @@ export default function Navbar() {
   if (!mounted) return null;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container-custom flex h-16 items-center justify-between">
+    <header className=" sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link 
@@ -52,12 +52,12 @@ export default function Navbar() {
           >
             Şiir
           </Link>
-          <Link 
+          {/* <Link 
             href="/hikaye" 
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
             Hikaye
-          </Link>
+          </Link> */}
           <Link 
             href="/roman" 
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
