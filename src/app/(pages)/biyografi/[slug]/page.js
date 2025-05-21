@@ -1,3 +1,4 @@
+"use client"
 import BiographyDetail from '@/components/biography/biographyDetail'
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react'
