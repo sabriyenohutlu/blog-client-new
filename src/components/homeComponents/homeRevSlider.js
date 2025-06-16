@@ -1,33 +1,35 @@
-"use client";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { getRandomImage } from "@/lib/randomImage";
-import { useEffect, useState } from "react";
-
-export default function HomeSlider({ novelRecommendationList }) {
+import Link from "next/link";
+const HomeRevSlider = ({ novelReviewsList }) => {
   const [randomImages, setRandomImages] = useState([]);
 
   useEffect(() => {
-    const generatedImages = novelRecommendationList.map(() => getRandomImage());
+    const generatedImages = novelReviewsList.map(() => getRandomImage());
     setRandomImages(generatedImages);
-  }, [novelRecommendationList]);
+  }, [novelReviewsList]);
 
   // Wait until images are loaded on the client
   if (randomImages.length === 0) return null;
   return (
-    <div className="w-full max-w-5xl mx-auto px-4">
-      <Carousel className="w-full">
+    <div className="w-full max-w-5xl mx-auto  h-[298px]">
+      <Carousel
+        className="w-full"
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
+      >
         <CarouselContent>
-          {novelRecommendationList.map((slide, index) => (
+          {novelReviewsList.map((slide, index) => (
             <CarouselItem key={index}>
-              <Link href={`/roman/oneriler/${slide.url.urledTitle}-${slide.novel_recId}`}>
+              <Link
+                href={`/roman/incelemeler/${slide.url.urledTitle}-${slide.novel_reviewId}`}
+              >
                 <Card className="border-0 shadow-none">
                   <CardContent className="relative aspect-[3/2] flex items-center justify-center p-0">
                     <div
@@ -39,8 +41,8 @@ export default function HomeSlider({ novelRecommendationList }) {
                       <div className="absolute inset-0 bg-black/50" />
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 z-10 text-start p-4 text-white ">
-                      <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        {slide.novel_recTitle}
+                      <h2 className="text-sm md:text-lg font-bold mb-4">
+                        {slide.novel_reviewTitle}
                       </h2>
                     </div>
                   </CardContent>
@@ -49,10 +51,11 @@ export default function HomeSlider({ novelRecommendationList }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
+        {/* <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" /> */}
       </Carousel>
     </div>
   );
-}
+};
+
+export default HomeRevSlider;

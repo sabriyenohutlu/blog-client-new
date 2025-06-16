@@ -3,7 +3,7 @@ import Blogs from "@/components/blog/blogs";
 export const dynamic = "force-dynamic";
  const BlogPage = async() =>{
   const [blogListWithLimit, blogListWithPin] = await Promise.all([ // aynı anda iki veri çekiyor
-    fetchBlogWithLimit(4), 
+    fetchBlogWithLimit(2), 
     fetchPinnedBlogs(), 
   ]);
   return <Blogs blogListWithLimit={blogListWithLimit} blogListWithPin={blogListWithPin}/>

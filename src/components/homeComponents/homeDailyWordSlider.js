@@ -1,7 +1,7 @@
 import React from 'react'
 import QuoteSlider from '../QuoteSlider'
 
-const homeThirdSlider = () => {
+const homeDailyWordSlider = () => {
   return (
     <div className='h-[275px] w-full '>
         <QuoteSlider/>
@@ -9,4 +9,4 @@ const homeThirdSlider = () => {
   )
 }
 
-export default homeThirdSlider
+export default homeDailyWordSlider

@@ -11,12 +11,26 @@ import Link from "next/link";
 import FeaturedPoems from "@/components/FeaturedPoems";
 import FeaturedBooks from "@/components/FeaturedBooks";
 import HomeMainSlider from "./HomeMainSlider";
-import QuoteSlider from "../QuoteSlider";
-import HomeSecSlider from "./homeSecSlider";
-import HomeThirdSlider from "./homeThirdSlider";
+import HomeDailyWordSlider from "./homeDailyWordSlider";
+import HomeRevSlider from "./homeRevSlider";
+import { useEffect, useState } from "react";
+import { fetchNovelReviewPinned } from "@/app/data/data";
 
-const Home = ({ novelRecommendationList,novelReviewsList }) => {
-
+const Home = ({ novelRecommendationList, novelReviewsList }) => {
+  const [pinnedReview, setPinnedReview] = useState(null);
+  useEffect(() => {
+    const getNovelReviewPinned = async () => {
+      try {
+        const novelReviewsPinnedList = await fetchNovelReviewPinned();
+        setPinnedReview(novelReviewsPinnedList);
+      } catch (error) {
+        console.error("Novel review pin error:", error);
+      }
+      
+    };
+    getNovelReviewPinned()
+  }, []);
+ 
   return (
     <div className="container">
       {/* Hero Section */}
@@ -26,11 +40,11 @@ const Home = ({ novelRecommendationList,novelReviewsList }) => {
             <HomeMainSlider novelRecommendationList={novelRecommendationList} />
           </div>
           <div className="flex flex-col h-full  w-2/6 ">
-          <div className="w-full ">
-              <HomeThirdSlider />
+            <div className="w-full ">
+              <HomeDailyWordSlider />
             </div>
             <div className="w-full ">
-              <HomeSecSlider novelReviewsList={novelReviewsList}/>
+              <HomeRevSlider novelReviewsList={novelReviewsList} />
             </div>
           </div>
         </div>
@@ -60,13 +74,13 @@ const Home = ({ novelRecommendationList,novelReviewsList }) => {
                 title: "Popüler Şiirler",
                 description: "En çok okunan ve beğenilen şiirler",
                 icon: Quote,
-                link: "/roman/oneriler",
+                link: "/siir",
               },
               {
-                title: "Popüler İçerikler",
+                title: "Blog Yazıları",
                 description: "En çok okunan ve beğenilen yazılar",
                 icon: TrendingUp,
-                link: "/popular-icerikler",
+                link: "/blog",
               },
             ].map((category, index) => (
               <Link key={index} href={category.link} className="group">
@@ -94,12 +108,10 @@ const Home = ({ novelRecommendationList,novelReviewsList }) => {
             Yorumlar yapın, koleksiyonlar oluşturun ve edebi tartışmalara
             katılın.
           </p>
-          <Button asChild size="lg">
             <Link href="/register" className="group">
-              Hemen Başla
+              Hemen Üye Olun
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </Button>
         </div>
       </section>
       <section className="py-16">
@@ -110,7 +122,7 @@ const Home = ({ novelRecommendationList,novelReviewsList }) => {
               Keşfetmeniz için hazırladığımız özel bölümler
             </p>
           </div>
-          <FeaturedBooks />
+          <FeaturedBooks pinnedReview={pinnedReview}/>
         </div>
       </section>
 
@@ -130,7 +142,6 @@ const Home = ({ novelRecommendationList,novelReviewsList }) => {
       {/* Featured Books */}
 
       {/* CTA Section */}
-   
     </div>
   );
 };

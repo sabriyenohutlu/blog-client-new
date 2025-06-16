@@ -8,6 +8,7 @@ import {
   orderBy,
   getDoc,
   where,
+  limit,
 } from "firebase/firestore";
 
 export const fetchNovelReviews = async () => {
@@ -87,6 +88,61 @@ export const fetchNovelReview = async (novel_reviewId) => {
     return { reviewData: [], reviewDataArticle: [] };
   }
 };
+export const fetchNovelReviewPinned = async () => {
+  try {
+    const q = query(
+      collection(db, "novelReview"),
+      orderBy("createdAt", "desc"),
+      limit(10)
+    );
+    const querySnapshot = await getDocs(q);
+
+    const novelReviewsPinnedList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+        ...data,
+        id: doc.id, // doc.id kullanımı için 'id' anahtarı daha açıklayıcı olur,
+        createdAt: data.createdAt?.toDate(),
+        novel_recordedDate: data.novel_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+      };
+    })
+      .filter((item) => item.status === "completed" && item.pinned === true);
+    return novelReviewsPinnedList[0];
+  } catch {
+    console.log("Error fetching novel review pinned:", error);
+    return [];
+  }
+};
+
+export const fetchNovelRecPinned = async () => {
+  try {
+    const q = query(
+      collection(db, "novelRecommendation"),
+      orderBy("createdAt", "desc"),
+      limit(10)
+    );
+    const querySnapshot = await getDocs(q);
+
+    const novelRecPinnedList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+        ...data,
+        id: doc.id, // doc.id kullanımı için 'id' anahtarı daha açıklayıcı olur,
+        createdAt: data.createdAt?.toDate(),
+        novel_recordedDate: data.novel_recordedDate?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+      };
+    })
+      .filter((item) => item.status === "completed" && item.pinned === true);
+    return novelRecPinnedList[0];
+  } catch {
+    console.log("Error fetching novel rec pinned:", error);
+    return [];
+  }
+};
 
 export const fetchCategories = async () => {
   const q = query(collection(db, "categories"));
@@ -106,20 +162,21 @@ export const fetchCategories = async () => {
 };
 
 export const fetchPoetries = async () => {
-  const q = query(collection(db, "poetry"),orderBy("createdAt", "desc"));
+  const q = query(collection(db, "poetry"), orderBy("createdAt", "desc"));
   try {
     const querySnapshot = await getDocs(q);
-    const poetriesList = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      return {
-        ...data,
-        id: doc.id,
-        createdAt: data.createdAt?.toDate(),
-        poetry_recordedDate: data.poetry_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-      }
-    
-    }).filter((item) => item.status === "completed");
+    const poetriesList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          createdAt: data.createdAt?.toDate(),
+          poetry_recordedDate: data.poetry_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed");
     return poetriesList;
   } catch (error) {
     console.log("Error poetriesList / fetchPoetries", error);
@@ -161,23 +218,24 @@ export const fetchPinnedPoetryList = async () => {
   const q = query(collection(db, "poetry"));
   try {
     const querySnapshot = await getDocs(q);
-    const pinnedPoetryList = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      return {
-        ...data,
-        id: doc.id,
-        createdAt: data.createdAt?.toDate(),
-        poetry_recordedDate: data.poetry_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-      }
-    
-    }).filter((item) => item.status === 'completed' && item.pinned === true); // status'u "completed" olanları filtrele
+    const pinnedPoetryList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          createdAt: data.createdAt?.toDate(),
+          poetry_recordedDate: data.poetry_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed" && item.pinned === true); // status'u "completed" olanları filtrele
     return pinnedPoetryList;
   } catch (error) {
     console.log("Error poetryList / fetcPoetries", error);
     return [];
   }
-}
+};
 
 export const fetchLatestPoetries = async () => {
   const q = query(
@@ -196,11 +254,10 @@ export const fetchLatestPoetries = async () => {
           createdAt: data.createdAt?.toDate(),
           poetry_recordedDate: data.poetry_recordedDate?.toDate(),
           updatedAt: data.updatedAt?.toDate(),
-        }
-   
+        };
       })
       .filter((item) => item.status === "completed");
-      console.log("latestPoetryList", latestPoetryList);
+    console.log("latestPoetryList", latestPoetryList);
     return latestPoetryList;
   } catch (error) {
     console.log("Error latestPoetryList / fetchLatestPoetries", error);
@@ -225,11 +282,10 @@ export const fetchLatestStories = async () => {
           createdAt: data.createdAt?.toDate(),
           poetry_recordedDate: data.poetry_recordedDate?.toDate(),
           updatedAt: data.updatedAt?.toDate(),
-        }
-   
+        };
       })
       .filter((item) => item.status === "completed");
-      console.log("latestPoetryList", latestStoriesList);
+    console.log("latestPoetryList", latestStoriesList);
     return latestStoriesList;
   } catch (error) {
     console.log("Error poetryList / fetcPoetries", error);
@@ -268,19 +324,18 @@ export const fetchStory = async (story_id) => {
 };
 
 export const fetchStories = async () => {
-  const q = query(collection(db, "story"),orderBy("createdAt", "desc"));
+  const q = query(collection(db, "story"), orderBy("createdAt", "desc"));
   try {
     const querySnapshot = await getDocs(q);
     const storiesList = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
+      const data = doc.data();
       return {
         ...data,
         id: doc.id,
         story_recordedDate: data.story_recordedDate?.toDate(),
         updatedAt: data.updatedAt?.toDate(),
         createdAt: data.createdAt?.toDate(),
-      }
-      
+      };
     });
     return storiesList;
   } catch (error) {
@@ -293,17 +348,18 @@ export const fetchPinnedStories = async () => {
   const q = query(collection(db, "story"));
   try {
     const querySnapshot = await getDocs(q);
-    const storiesListPinned = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      return {
-        ...data,
-        id: doc.id,
-        story_recordedDate: data.story_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-        createdAt: data.createdAt?.toDate(),
-      }
-      
-    }).filter((item) => item.status === 'completed' && item.pinned === true); // status'u "completed" olanları filtrele
+    const storiesListPinned = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          story_recordedDate: data.story_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+          createdAt: data.createdAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed" && item.pinned === true); // status'u "completed" olanları filtrele
     return storiesListPinned;
   } catch (error) {
     console.log("Error storiesList / fetchStories", error);
@@ -399,16 +455,16 @@ export const fetchBlogs = async () => {
     const querySnapshot = await getDocs(q);
 
     const blogList = querySnapshot.docs
-    .map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-        blog_recordedDate: data.blog_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-        createdAt: data.createdAt?.toDate(),
-      };
-    })
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          blog_recordedDate: data.blog_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+          createdAt: data.createdAt?.toDate(),
+        };
+      })
       .filter((item) => (item.status = "completed"));
     return blogList;
   } catch (error) {
@@ -420,21 +476,26 @@ export const fetchBlogs = async () => {
 export const fetchBlogWithLimit = async (limit) => {
   try {
     const blogCol = collection(db, "blog"); // Doğrudan koleksiyon referansı
-    const q = query(blogCol, orderBy("createdAt", "desc"), limitFn(limit)); // limit() fonksiyon olarak kullanılmalı
+     const q = query(
+      blogCol,
+      where("status", "==", "completed"), // önce filtrele
+      where("pinned", "==", false),       // aynı şekilde pinned kontrolü
+      orderBy("createdAt", "desc"),       // sıralama
+      limitFn(limit)                      // sınırla
+    ); // limit() fonksiyon olarak kullanılmalı
     const querySnapshot = await getDocs(q);
 
     const blogListWithLimit = querySnapshot.docs
-    .map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-        blog_recordedDate: data.blog_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-        createdAt: data.createdAt?.toDate(),
-      };
-    })
-      .filter((item) => item.status === "completed"&& item.pinned === false); // status'u "completed" olanları filtrele
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          blog_recordedDate: data.blog_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+          createdAt: data.createdAt?.toDate(),
+        };
+      })
     return blogListWithLimit;
   } catch (error) {
     console.error("Error fetching blog:", error);
@@ -444,38 +505,32 @@ export const fetchBlogWithLimit = async (limit) => {
 export const fetchPinnedBlogs = async () => {
   try {
     const blogCol = collection(db, "blog"); // Doğrudan koleksiyon referansı
-    const q = query(blogCol, orderBy("createdAt", "desc")); 
+    const q = query(blogCol, orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q);
 
     const blogListWithPin = querySnapshot.docs
-    .map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-        blog_recordedDate: data.blog_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-        createdAt: data.createdAt?.toDate(),
-      };
-    })
-      .filter((item) => item.status === 'completed' && item.pinned === true); // status'u "completed" olanları filtrele
-       return blogListWithPin;
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          blog_recordedDate: data.blog_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+          createdAt: data.createdAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed" && item.pinned === true); // status'u "completed" olanları filtrele
+    return blogListWithPin;
   } catch (error) {
     console.error("Error fetching blog:", error);
     return [];
   }
-}
+};
 
 export const fetchBlog = async (blog_id) => {
   try {
     const q = doc(db, "blog", blog_id);
-    const qarticle = doc(
-      db,
-      "blog",
-      blog_id,
-      "blogBody",
-      blog_id
-    );
+    const qarticle = doc(db, "blog", blog_id, "blogBody", blog_id);
     let blogData = null;
     let blogDataArticle = null;
 
@@ -501,27 +556,29 @@ export const fetchBlog = async (blog_id) => {
     console.error("Error fetching novel review detail:", error);
     return { blogData: [], blogDataArticle: [] };
   }
-}
+};
 
 export const fetchDailyWords = async () => {
   const q = query(collection(db, "dailyWord"), orderBy("createdAt", "desc"));
   try {
     const querySnapshot = await getDocs(q);
-    const dailyWordsList = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-        createdAt: data.createdAt?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-      }
-    }).filter((item) => item.status === "completed");
+    const dailyWordsList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          createdAt: data.createdAt?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed");
     return dailyWordsList;
   } catch (error) {
     console.log("Error fetching daily words:", error);
     return [];
   }
-}
+};
 
 export const fetchBiography = async (biography_id) => {
   try {
@@ -557,29 +614,29 @@ export const fetchBiography = async (biography_id) => {
     console.error("Error fetching novel review detail:", error);
     return { biographyData: [], biographyDataArticle: [] };
   }
-}
+};
 export const fetchBiographies = async () => {
   const q = query(collection(db, "biography"), orderBy("createdAt", "desc"));
   try {
     const querySnapshot = await getDocs(q);
-    const biographyList = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      return {
-        ...data,
-        id: doc.id,
-        createdAt: data.createdAt?.toDate(),
-        biography_recordedDate: data.biography_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-      }
-    
-    }).filter((item) => item.status === "completed");
+    const biographyList = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          createdAt: data.createdAt?.toDate(),
+          biography_recordedDate: data.biography_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed");
     return biographyList;
   } catch (error) {
     console.log("Error biographyList / fetchBiographies", error);
     return [];
   }
-
-}
+};
 export const fetchBiographiesWithLimit = async () => {
   try {
     const biographyCol = collection(db, "biography"); // Doğrudan koleksiyon referansı
@@ -588,15 +645,14 @@ export const fetchBiographiesWithLimit = async () => {
 
     const biographyListWithLimit = querySnapshot.docs
       .map((doc) => {
-        const data = doc.data()
+        const data = doc.data();
         return {
           ...data,
           id: doc.id,
           createdAt: data.createdAt?.toDate(),
           biography_recordedDate: data.biography_recordedDate?.toDate(),
           updatedAt: data.updatedAt?.toDate(),
-        }
-    
+        };
       })
       .filter((item) => item.status === "completed"); // status'u "completed" olanları filtrele
 
@@ -605,25 +661,26 @@ export const fetchBiographiesWithLimit = async () => {
     console.error("Error fetching biography:", error);
     return [];
   }
-}
+};
 export const fetchPinnedBiographies = async () => {
   const q = query(collection(db, "biography"));
   try {
     const querySnapshot = await getDocs(q);
-    const biographyListPinned = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      return {
-        ...data,
-        id: doc.id,
-        createdAt: data.createdAt?.toDate(),
-        biography_recordedDate: data.biography_recordedDate?.toDate(),
-        updatedAt: data.updatedAt?.toDate(),
-      }
-    
-    }).filter((item) => item.status === 'completed' && item.pinned === true); // status'u "completed" olanları filtrele
+    const biographyListPinned = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          createdAt: data.createdAt?.toDate(),
+          biography_recordedDate: data.biography_recordedDate?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        };
+      })
+      .filter((item) => item.status === "completed" && item.pinned === true); // status'u "completed" olanları filtrele
     return biographyListPinned;
   } catch (error) {
     console.log("Error biographyList / fetchBiographies", error);
     return [];
-  } 
-}
+  }
+};
